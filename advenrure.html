@@ -1,0 +1,3130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Quest - Kids Math Adventure</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    background:#87ceeb;
+    color:#263238;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+#loadingScreen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #4db8ff 0%,
+            #9ee5ff 55%,
+            #73c94d 55%,
+            #73c94d 100%
+        );
+}
+
+.sun{
+    position:absolute;
+    top:50px;
+    right:9%;
+    width:100px;
+    height:100px;
+    background:#ffd83d;
+    border-radius:50%;
+    box-shadow:0 0 45px #fff29a;
+}
+
+.cloud{
+    position:absolute;
+    width:120px;
+    height:35px;
+    background:white;
+    border-radius:30px;
+    opacity:.9;
+    animation:cloudMove 18s linear infinite;
+}
+
+.cloud:before,
+.cloud:after{
+    content:"";
+    position:absolute;
+    background:white;
+    border-radius:50%;
+}
+
+.cloud:before{
+    width:55px;
+    height:55px;
+    left:20px;
+    top:-25px;
+}
+
+.cloud:after{
+    width:65px;
+    height:65px;
+    right:15px;
+    top:-30px;
+}
+
+.cloud1{
+    top:100px;
+    left:-160px;
+}
+
+.cloud2{
+    top:190px;
+    left:-300px;
+    transform:scale(.7);
+    animation-delay:6s;
+}
+
+@keyframes cloudMove{
+    from{transform:translateX(0);}
+    to{transform:translateX(130vw);}
+}
+
+.mountain{
+    position:absolute;
+    bottom:40%;
+    width:0;
+    height:0;
+    border-left:150px solid transparent;
+    border-right:150px solid transparent;
+    border-bottom:210px solid #5f9f69;
+}
+
+.mountain1{
+    left:3%;
+}
+
+.mountain2{
+    right:2%;
+    transform:scale(1.3);
+}
+
+.tree{
+    position:absolute;
+    bottom:0;
+    width:45px;
+    height:120px;
+    background:#70472a;
+}
+
+.tree:before{
+    content:"";
+    position:absolute;
+    width:110px;
+    height:110px;
+    left:-32px;
+    top:-65px;
+    background:#35a943;
+    border-radius:50%;
+    box-shadow:
+        35px -30px 0 #42b94e,
+        65px 5px 0 #2e963b;
+}
+
+.tree1{left:7%;}
+.tree2{left:24%;transform:scale(.8);}
+.tree3{right:18%;transform:scale(1.1);}
+.tree4{right:5%;transform:scale(.75);}
+
+.loading-card{
+    position:relative;
+    z-index:20;
+
+    width:min(90%,650px);
+    padding:40px 30px;
+
+    text-align:center;
+
+    background:#fff;
+    border:6px solid #3c3c3c;
+
+    box-shadow:
+        12px 12px 0 #222,
+        0 25px 50px rgba(0,0,0,.3);
+}
+
+.crystal{
+    width:90px;
+    height:90px;
+    margin:0 auto 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+
+    background:linear-gradient(
+        135deg,
+        #8b5cff,
+        #47c9ff,
+        #70f5d0
+    );
+
+    transform:rotate(45deg);
+    border:5px solid #fff;
+
+    box-shadow:
+        0 0 0 5px #5940a8,
+        15px 15px 0 rgba(0,0,0,.25);
+
+    animation:crystalSpin 3s infinite;
+}
+
+.crystal span{
+    transform:rotate(-45deg);
+}
+
+@keyframes crystalSpin{
+    0%,100%{
+        transform:rotate(45deg) scale(1);
+    }
+
+    50%{
+        transform:rotate(45deg) scale(1.12);
+    }
+}
+
+.loading-card h1{
+    font-family:"Courier New",monospace;
+    font-size:55px;
+    color:#42a83d;
+
+    text-shadow:
+        4px 4px 0 #266425;
+}
+
+.loading-card h2{
+    margin:10px 0;
+    color:#555;
+}
+
+.loading-card p{
+    font-size:18px;
+    line-height:1.5;
+    margin-bottom:22px;
+}
+
+.loading-bar{
+    width:100%;
+    height:28px;
+
+    background:#333;
+    border:4px solid #222;
+    overflow:hidden;
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:#63d54c;
+    transition:.15s;
+}
+
+#loadingPercent{
+    font-family:monospace;
+    font-weight:bold;
+    margin:8px;
+}
+
+.press-btn{
+    display:none;
+
+    padding:15px 38px;
+
+    background:#55bd45;
+    color:white;
+
+    font-size:22px;
+    font-weight:bold;
+
+    border:5px solid #367b2c;
+
+    box-shadow:0 7px 0 #24521d;
+
+    animation:pulse 1.2s infinite;
+}
+
+.press-btn:hover{
+    transform:translateY(3px);
+    box-shadow:0 4px 0 #24521d;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.05);
+    }
+}
+
+/* =====================================================
+   MAIN GAME
+===================================================== */
+
+#game{
+    display:none;
+    min-height:100vh;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #65c8f4 0%,
+            #b9ecff 42%,
+            #77c94d 42%,
+            #77c94d 100%
+        );
+}
+
+header{
+    min-height:75px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:10px 25px;
+
+    background:#fff;
+
+    border-bottom:5px solid #555;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-family:monospace;
+    color:#45a83e;
+    font-size:28px;
+}
+
+.stats{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.stat{
+    padding:8px 13px;
+
+    background:#eee;
+
+    border:3px solid #555;
+
+    font-weight:bold;
+}
+
+/* Clouds */
+
+.game-cloud{
+    position:fixed;
+    width:120px;
+    height:35px;
+    background:#fff;
+    border-radius:30px;
+    opacity:.8;
+    z-index:0;
+}
+
+.game-cloud:before,
+.game-cloud:after{
+    content:"";
+    position:absolute;
+    background:white;
+    border-radius:50%;
+}
+
+.game-cloud:before{
+    width:50px;
+    height:50px;
+    left:15px;
+    top:-25px;
+}
+
+.game-cloud:after{
+    width:55px;
+    height:55px;
+    right:15px;
+    top:-27px;
+}
+
+.gc1{
+    top:110px;
+    left:5%;
+}
+
+.gc2{
+    top:170px;
+    right:8%;
+    transform:scale(.7);
+}
+
+/* World */
+
+#world{
+    position:relative;
+    z-index:2;
+    max-width:1100px;
+    margin:auto;
+    padding:35px 20px 70px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-family:monospace;
+    font-size:42px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+/* Milo */
+
+.milo{
+    width:80px;
+    height:100px;
+    margin:20px auto;
+
+    position:relative;
+}
+
+.milo-head{
+    width:70px;
+    height:70px;
+    background:#f2b27b;
+    border:5px solid #333;
+    border-radius:50%;
+    margin:auto;
+    position:relative;
+}
+
+.milo-head:before{
+    content:"";
+    position:absolute;
+    width:10px;
+    height:12px;
+    background:#222;
+    border-radius:50%;
+    left:15px;
+    top:28px;
+    box-shadow:28px 0 #222;
+}
+
+.milo-head:after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:7px;
+    background:#333;
+    left:20px;
+    top:48px;
+    border-radius:0 0 20px 20px;
+}
+
+.milo-body{
+    width:58px;
+    height:42px;
+    background:#3d8cff;
+    border:5px solid #333;
+    margin:auto;
+    border-radius:10px;
+}
+
+/* Story */
+
+.story-box{
+    max-width:850px;
+    margin:0 auto 30px;
+
+    padding:22px;
+
+    background:#fff6df;
+
+    border:4px solid #b7864b;
+
+    box-shadow:7px 7px 0 #76532d;
+
+    text-align:center;
+
+    font-size:18px;
+    line-height:1.6;
+}
+
+.story-box strong{
+    display:block;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+/* Levels */
+
+.levels{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.level{
+    background:white;
+
+    padding:22px;
+
+    text-align:center;
+
+    border:4px solid #555;
+
+    box-shadow:7px 7px 0 #292929;
+
+    transition:.2s;
+}
+
+.level:hover{
+    transform:translateY(-5px);
+}
+
+.level-icon{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.level h3{
+    margin-bottom:8px;
+}
+
+.level p{
+    min-height:50px;
+    margin-bottom:15px;
+    line-height:1.4;
+}
+
+.level-btn{
+    padding:12px 22px;
+
+    background:#55bd45;
+    color:white;
+
+    border:4px solid #367b2c;
+
+    box-shadow:0 5px 0 #24521d;
+
+    font-weight:bold;
+}
+
+/* =====================================================
+   NORMAL GAME PANEL
+===================================================== */
+
+#gamePanel{
+    display:none;
+
+    max-width:800px;
+    margin:auto;
+    padding:30px 20px 60px;
+    text-align:center;
+}
+
+.back-btn{
+    padding:11px 20px;
+    margin-bottom:20px;
+
+    background:#607d8b;
+    color:#fff;
+
+    border:4px solid #455a64;
+    box-shadow:0 5px 0 #263238;
+
+    font-weight:bold;
+}
+
+.question-card{
+    background:#fff;
+
+    padding:30px;
+
+    border:5px solid #555;
+
+    box-shadow:9px 9px 0 #292929;
+}
+
+.question-card h2{
+    font-family:monospace;
+    color:#45a83e;
+    margin-bottom:10px;
+}
+
+.question-story{
+    background:#fff6df;
+
+    padding:15px;
+
+    border:3px solid #b7864b;
+
+    margin-bottom:20px;
+
+    line-height:1.5;
+}
+
+.progress{
+    height:18px;
+    background:#ddd;
+    border:3px solid #555;
+    margin:15px 0 25px;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:#55bd45;
+    transition:.3s;
+}
+
+.math-question{
+    font-size:52px;
+    font-weight:bold;
+    margin:25px;
+}
+
+.answers{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.answer{
+    padding:18px;
+
+    background:#5ebeff;
+    color:white;
+
+    font-size:30px;
+    font-weight:bold;
+
+    border:4px solid #3788ba;
+
+    box-shadow:0 5px 0 #286486;
+
+    transition:.15s;
+}
+
+.answer:hover{
+    transform:translateY(3px);
+}
+
+.answer.correct{
+    background:#55c94c;
+}
+
+.answer.wrong{
+    background:#e75a5a;
+}
+
+.feedback{
+    min-height:45px;
+
+    margin-top:20px;
+
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* =====================================================
+   ADVENTURE MODE
+===================================================== */
+
+#adventureMode{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    z-index:700;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #52c8ff 0%,
+            #bdefff 48%,
+            #6fc447 48%,
+            #4a9e35 100%
+        );
+}
+
+/* Adventure sky */
+
+.adventure-sun{
+    position:absolute;
+    width:90px;
+    height:90px;
+    right:8%;
+    top:55px;
+    border-radius:50%;
+    background:#ffe047;
+    box-shadow:0 0 40px #fff7a0;
+}
+
+/* Adventure clouds */
+
+.adventure-cloud{
+    position:absolute;
+    width:130px;
+    height:38px;
+    background:white;
+    border-radius:30px;
+    opacity:.85;
+    animation:runCloud 9s linear infinite;
+}
+
+.adventure-cloud:before,
+.adventure-cloud:after{
+    content:"";
+    position:absolute;
+    background:white;
+    border-radius:50%;
+}
+
+.adventure-cloud:before{
+    width:55px;
+    height:55px;
+    left:15px;
+    top:-27px;
+}
+
+.adventure-cloud:after{
+    width:65px;
+    height:65px;
+    right:12px;
+    top:-30px;
+}
+
+.ac1{
+    top:100px;
+    left:10%;
+}
+
+.ac2{
+    top:190px;
+    left:60%;
+    transform:scale(.7);
+    animation-delay:3s;
+}
+
+@keyframes runCloud{
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-160px);
+    }
+}
+
+/* Adventure mountains */
+
+.adventure-mountain{
+    position:absolute;
+    bottom:38%;
+    width:0;
+    height:0;
+
+    border-left:180px solid transparent;
+    border-right:180px solid transparent;
+    border-bottom:230px solid #57955e;
+}
+
+.am1{
+    left:-30px;
+}
+
+.am2{
+    right:-50px;
+    transform:scale(1.2);
+}
+
+/* Ground */
+
+.adventure-ground{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:52%;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 70px,
+            rgba(255,255,255,.08) 71px 74px
+        ),
+        #68b63e;
+
+    border-top:6px solid #477c2e;
+}
+
+/* Road */
+
+.adventure-road{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:5%;
+    height:145px;
+
+    background:#666;
+
+    border-top:8px solid #444;
+    border-bottom:8px solid #444;
+}
+
+.adventure-road:after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:58px;
+    height:15px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #ffe95c 0 90px,
+            transparent 90px 170px
+        );
+}
+
+/* Trees */
+
+.adventure-tree{
+    position:absolute;
+    bottom:34%;
+    width:30px;
+    height:90px;
+    background:#70472a;
+    z-index:3;
+}
+
+.adventure-tree:before{
+    content:"";
+    position:absolute;
+
+    width:85px;
+    height:85px;
+
+    left:-28px;
+    top:-65px;
+
+    background:#2e9e3d;
+
+    border-radius:50%;
+
+    box-shadow:
+        35px -20px 0 #42b84c,
+        55px 10px 0 #258c32;
+}
+
+.at1{left:8%;}
+.at2{left:25%;transform:scale(.75);}
+.at3{right:25%;transform:scale(.9);}
+.at4{right:8%;}
+
+/* Adventure header */
+
+.adventure-header{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:20;
+
+    padding:16px;
+
+    text-align:center;
+
+    color:white;
+
+    background:rgba(40,70,90,.75);
+
+    border-bottom:4px solid #293d48;
+}
+
+.adventure-header h1{
+    font-family:monospace;
+    font-size:30px;
+}
+
+.adventure-header p{
+    margin-top:5px;
+}
+
+/* Running character */
+
+.runner{
+    position:absolute;
+
+    left:10%;
+
+    bottom:17%;
+
+    width:80px;
+    height:120px;
+
+    z-index:15;
+
+    animation:
+        runnerBounce .38s infinite alternate,
+        runnerMove 2s infinite ease-in-out;
+}
+
+@keyframes runnerBounce{
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-13px);
+    }
+}
+
+@keyframes runnerMove{
+    0%,100%{
+        left:10%;
+    }
+
+    50%{
+        left:14%;
+    }
+}
+
+.runner-head{
+    position:absolute;
+
+    left:8px;
+    top:0;
+
+    width:64px;
+    height:64px;
+
+    background:#f2b27b;
+
+    border:5px solid #333;
+
+    border-radius:50%;
+}
+
+.runner-head:before{
+    content:"";
+
+    position:absolute;
+
+    width:9px;
+    height:11px;
+
+    background:#222;
+
+    border-radius:50%;
+
+    left:13px;
+    top:25px;
+
+    box-shadow:26px 0 #222;
+}
+
+.runner-head:after{
+    content:"";
+
+    position:absolute;
+
+    width:18px;
+    height:6px;
+
+    background:#333;
+
+    left:18px;
+    top:44px;
+
+    border-radius:0 0 15px 15px;
+}
+
+.runner-body{
+    position:absolute;
+
+    left:14px;
+    top:57px;
+
+    width:52px;
+    height:42px;
+
+    background:#3d8cff;
+
+    border:5px solid #333;
+
+    border-radius:10px;
+}
+
+.runner-leg{
+    position:absolute;
+
+    width:16px;
+    height:35px;
+
+    background:#333;
+
+    top:93px;
+
+    border-radius:8px;
+
+    animation:legs .25s infinite alternate;
+}
+
+.runner-leg.left{
+    left:17px;
+}
+
+.runner-leg.right{
+    right:17px;
+    animation-delay:.12s;
+}
+
+@keyframes legs{
+    from{
+        transform:rotate(28deg);
+    }
+
+    to{
+        transform:rotate(-28deg);
+    }
+}
+
+/* Adventure question */
+
+#adventureQuestionBox{
+    position:absolute;
+
+    z-index:30;
+
+    top:20%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(92%,650px);
+
+    text-align:center;
+
+    background:white;
+
+    padding:25px;
+
+    border:6px solid #3d3d3d;
+
+    box-shadow:
+        10px 10px 0 #222,
+        0 20px 40px rgba(0,0,0,.3);
+}
+
+#adventureQuestionBox h2{
+    color:#ef8d24;
+    font-family:monospace;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+#adventureQuestionText{
+    font-size:42px;
+    font-weight:bold;
+    margin:15px;
+}
+
+#adventureHint{
+    font-size:17px;
+    margin-bottom:15px;
+}
+
+/* Doors */
+
+.doors{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+
+    margin-top:20px;
+}
+
+.door{
+    position:relative;
+
+    min-height:190px;
+
+    padding:20px;
+
+    background:#a96b3c;
+
+    border:7px solid #663d24;
+
+    color:white;
+
+    font-size:38px;
+    font-weight:bold;
+
+    box-shadow:
+        inset 0 0 0 5px #c78b52,
+        0 8px 0 #422716;
+
+    transition:.2s;
+}
+
+.door:hover{
+    transform:translateY(-8px);
+}
+
+.door:before{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:18px;
+
+    transform:translateX(-50%);
+
+    width:105px;
+    height:135px;
+
+    background:#70472a;
+
+    border:5px solid #422716;
+
+    border-radius:55px 55px 0 0;
+}
+
+.door span{
+    position:relative;
+    z-index:2;
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    background:#4c2d1c;
+
+    border:4px solid #2e1c12;
+
+    border-radius:10px;
+}
+
+/* Adventure message */
+
+#adventureMessage{
+    position:absolute;
+
+    z-index:50;
+
+    left:50%;
+    top:82%;
+
+    transform:translateX(-50%);
+
+    padding:12px 25px;
+
+    background:#fff;
+
+    border:4px solid #444;
+
+    box-shadow:5px 5px 0 #222;
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    display:none;
+}
+
+/* Adventure HUD */
+
+#adventureLives{
+    position:absolute;
+
+    z-index:50;
+
+    top:95px;
+    left:20px;
+
+    padding:10px 15px;
+
+    background:#fff;
+
+    border:4px solid #555;
+
+    font-weight:bold;
+}
+
+/* =====================================================
+   POPUPS
+===================================================== */
+
+.overlay{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    z-index:500;
+
+    background:rgba(20,30,40,.8);
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.popup{
+    width:min(90%,600px);
+
+    background:#fff;
+
+    padding:35px;
+
+    text-align:center;
+
+    border:5px solid #555;
+
+    box-shadow:10px 10px 0 #222;
+}
+
+.popup-icon{
+    font-size:70px;
+    margin-bottom:10px;
+}
+
+.popup h2{
+    font-family:monospace;
+    color:#45a83e;
+    font-size:34px;
+    margin-bottom:15px;
+}
+
+.popup p{
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.popup button{
+    padding:13px 25px;
+    margin:5px;
+
+    font-size:17px;
+    font-weight:bold;
+}
+
+.continue{
+    background:#55bd45;
+    color:#fff;
+    border:4px solid #367b2c;
+    box-shadow:0 5px 0 #24521d;
+}
+
+.map-button{
+    background:#607d8b;
+    color:#fff;
+    border:4px solid #455a64;
+    box-shadow:0 5px 0 #263238;
+}
+
+/* Confetti */
+
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    top:-20px;
+    z-index:1000;
+    animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+    }
+}
+
+/* Mobile */
+
+@media(max-width:650px){
+
+    header{
+        flex-direction:column;
+        gap:8px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .loading-card h1{
+        font-size:40px;
+    }
+
+    .loading-card{
+        padding:30px 20px;
+    }
+
+    .answers{
+        grid-template-columns:1fr;
+    }
+
+    .math-question{
+        font-size:40px;
+    }
+
+    .stats{
+        justify-content:center;
+    }
+
+    .doors{
+        gap:10px;
+    }
+
+    .door{
+        min-height:145px;
+        font-size:25px;
+    }
+
+    .door:before{
+        width:80px;
+        height:105px;
+    }
+
+    #adventureQuestionBox{
+        top:16%;
+        padding:18px;
+    }
+
+    #adventureQuestionText{
+        font-size:32px;
+    }
+
+    .runner{
+        left:4%;
+        transform:scale(.8);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOADING SCREEN
+===================================================== -->
+
+<section id="loadingScreen">
+
+    <div class="sun"></div>
+
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <div class="mountain mountain1"></div>
+    <div class="mountain mountain2"></div>
+
+    <div class="tree tree1"></div>
+    <div class="tree tree2"></div>
+    <div class="tree tree3"></div>
+    <div class="tree tree4"></div>
+
+    <div class="loading-card">
+
+        <div class="crystal">
+            <span>+</span>
+        </div>
+
+        <h1>Math Quest</h1>
+
+        <h2>🌈 The Number Adventure</h2>
+
+        <p>
+            Milo needs your help! The magical Number Crystal
+            has lost its power. Solve math challenges,
+            explore the world, and collect magical items.
+        </p>
+
+        <div class="loading-bar">
+            <div class="loading-progress"
+                 id="loadingProgress">
+            </div>
+        </div>
+
+        <div id="loadingPercent">0%</div>
+
+        <button
+            id="pressPlay"
+            class="press-btn"
+            onclick="startAdventure()">
+
+            ▶ PRESS TO PLAY
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN GAME
+===================================================== -->
+
+<section id="game">
+
+    <header>
+
+        <div class="logo">
+            🌈 MATH QUEST
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                ⭐ Score:
+                <span id="score">0</span>
+            </div>
+
+            <div class="stat">
+                ❤️ Lives:
+                <span id="lives">3</span>
+            </div>
+
+            <div class="stat">
+                🏆 Level:
+                <span id="levelNumber">1</span>/10
+            </div>
+
+            <div class="stat">
+                🎁 Items:
+                <span id="items">0</span>
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="game-cloud gc1"></div>
+    <div class="game-cloud gc2"></div>
+
+
+    <!-- WORLD -->
+
+    <main id="world">
+
+        <div class="hero">
+
+            <h1>🌎 Welcome to Math World!</h1>
+
+            <p>
+                Help Milo restore the Number Crystal!
+            </p>
+
+            <div class="milo">
+                <div class="milo-head"></div>
+                <div class="milo-body"></div>
+            </div>
+
+        </div>
+
+
+        <div class="story-box">
+
+            <strong>📖 Milo's Story</strong>
+
+            <p>
+                One sunny morning, Milo discovered that the
+                magical Number Crystal had become weak.
+                To restore its power, he must travel across
+                Math World and solve addition challenges.
+            </p>
+
+            <br>
+
+            <p>
+                Every correct answer gives Milo stars.
+                But be careful! If you make two mistakes
+                in one level, Milo must enter
+                <strong>🏃 ADVENTURE MODE!</strong>
+            </p>
+
+        </div>
+
+
+        <div class="levels">
+
+            <div class="level">
+                <div class="level-icon">🌱</div>
+                <h3>Level 1</h3>
+                <p>Learn simple addition.</p>
+                <button class="level-btn"
+                        onclick="startLevel(1)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">🍎</div>
+                <h3>Level 2</h3>
+                <p>Count the apples.</p>
+                <button class="level-btn"
+                        onclick="startLevel(2)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">🌳</div>
+                <h3>Level 3</h3>
+                <p>Explore the forest.</p>
+                <button class="level-btn"
+                        onclick="startLevel(3)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">🌸</div>
+                <h3>Level 4</h3>
+                <p>Help the flowers bloom.</p>
+                <button class="level-btn"
+                        onclick="startLevel(4)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">🪵</div>
+                <h3>Level 5</h3>
+                <p>Cross the counting bridge.</p>
+                <button class="level-btn"
+                        onclick="startLevel(5)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">💎</div>
+                <h3>Level 6</h3>
+                <p>Find the crystal gems.</p>
+                <button class="level-btn"
+                        onclick="startLevel(6)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">🏰</div>
+                <h3>Level 7</h3>
+                <p>Reach the number castle.</p>
+                <button class="level-btn"
+                        onclick="startLevel(7)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">☁️</div>
+                <h3>Level 8</h3>
+                <p>Explore the sky world.</p>
+                <button class="level-btn"
+                        onclick="startLevel(8)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">⭐</div>
+                <h3>Level 9</h3>
+                <p>Collect the star power.</p>
+                <button class="level-btn"
+                        onclick="startLevel(9)">
+                    PLAY
+                </button>
+            </div>
+
+            <div class="level">
+                <div class="level-icon">🔮</div>
+                <h3>Level 10</h3>
+                <p>Restore the Number Crystal!</p>
+                <button class="level-btn"
+                        onclick="startLevel(10)">
+                    FINAL LEVEL
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =================================================
+         NORMAL GAME PANEL
+    ================================================= -->
+
+    <section id="gamePanel">
+
+        <button class="back-btn"
+                onclick="backToWorld()">
+
+            ← Back to World
+
+        </button>
+
+        <div class="question-card">
+
+            <h2 id="levelTitle">
+                Level 1
+            </h2>
+
+            <div class="question-story"
+                 id="questionStory">
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-fill"
+                     id="progressFill">
+                </div>
+
+            </div>
+
+            <div id="questionCount">
+                Question 1/5
+            </div>
+
+            <div class="math-question"
+                 id="mathQuestion">
+            </div>
+
+            <div class="answers"
+                 id="answers">
+            </div>
+
+            <div class="feedback"
+                 id="feedback">
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+
+
+<!-- =====================================================
+     ADVENTURE MODE
+===================================================== -->
+
+<section id="adventureMode">
+
+    <div class="adventure-sun"></div>
+
+    <div class="adventure-cloud ac1"></div>
+    <div class="adventure-cloud ac2"></div>
+
+    <div class="adventure-mountain am1"></div>
+    <div class="adventure-mountain am2"></div>
+
+    <div class="adventure-ground"></div>
+
+    <div class="adventure-road"></div>
+
+    <div class="adventure-tree at1"></div>
+    <div class="adventure-tree at2"></div>
+    <div class="adventure-tree at3"></div>
+    <div class="adventure-tree at4"></div>
+
+
+    <div class="adventure-header">
+
+        <h1>🏃 ADVENTURE MODE!</h1>
+
+        <p>
+            Milo is running! Choose the correct door!
+        </p>
+
+    </div>
+
+
+    <div id="adventureLives">
+        ❤️ Lives:
+        <span id="adventureLifeNumber">3</span>
+    </div>
+
+
+    <!-- Running Milo -->
+
+    <div class="runner">
+
+        <div class="runner-head"></div>
+
+        <div class="runner-body"></div>
+
+        <div class="runner-leg left"></div>
+        <div class="runner-leg right"></div>
+
+    </div>
+
+
+    <!-- Question -->
+
+    <div id="adventureQuestionBox">
+
+        <h2>
+            🚪 Choose the Correct Door!
+        </h2>
+
+        <div id="adventureHint">
+            Solve the math problem and enter
+            the door with the correct answer.
+        </div>
+
+        <div id="adventureQuestionText">
+            5 + 3 = ?
+        </div>
+
+        <div class="doors">
+
+            <button class="door"
+                    id="door1"
+                    onclick="chooseAdventureDoor(0)">
+
+                <span id="doorAnswer1">
+                    8
+                </span>
+
+            </button>
+
+            <button class="door"
+                    id="door2"
+                    onclick="chooseAdventureDoor(1)">
+
+                <span id="doorAnswer2">
+                    10
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div id="adventureMessage"></div>
+
+</section>
+
+
+<!-- =====================================================
+     COMPLETE POPUP
+===================================================== -->
+
+<div class="overlay" id="completePopup">
+
+    <div class="popup">
+
+        <div class="popup-icon"
+             id="rewardIcon">
+            🎁
+        </div>
+
+        <h2 id="completeTitle">
+            Level Complete!
+        </h2>
+
+        <p id="completeText">
+            Great job!
+        </p>
+
+        <button class="continue"
+                onclick="nextLevel()">
+
+            ▶ NEXT LEVEL
+
+        </button>
+
+        <button class="map-button"
+                onclick="backToWorld()">
+
+            🌎 WORLD MAP
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     GAME OVER
+===================================================== -->
+
+<div class="overlay" id="gameOverPopup">
+
+    <div class="popup">
+
+        <div class="popup-icon">
+            💪
+        </div>
+
+        <h2>
+            Try Again!
+        </h2>
+
+        <p id="gameOverText">
+            Don't worry! Every mistake helps you learn.
+        </p>
+
+        <button class="continue"
+                onclick="restartGame()">
+
+            🔄 TRY AGAIN
+
+        </button>
+
+        <button class="map-button"
+                onclick="backToWorld()">
+
+            🌎 WORLD MAP
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     VICTORY
+===================================================== -->
+
+<div class="overlay" id="victoryPopup">
+
+    <div class="popup">
+
+        <div class="popup-icon">
+            🏆
+        </div>
+
+        <h2>
+            MATH HERO!
+        </h2>
+
+        <p>
+            🎉 Amazing! You completed all 10 levels
+            and restored the magical Number Crystal!
+        </p>
+
+        <p>
+            ⭐ Final Score:
+            <strong id="finalScore">0</strong>
+        </p>
+
+        <button class="continue"
+                onclick="restartGame()">
+
+            🔄 PLAY AGAIN
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   GAME VARIABLES
+===================================================== */
+
+let score = 0;
+let lives = 3;
+
+let currentLevel = 1;
+let questionNumber = 1;
+
+let questionsPerLevel = 5;
+
+let correctAnswer = 0;
+
+let totalItems = 0;
+
+let currentA = 0;
+let currentB = 0;
+
+
+/* =====================================================
+   NEW ADVENTURE VARIABLES
+===================================================== */
+
+let mistakesThisLevel = 0;
+
+let adventureActive = false;
+
+let adventureQuestionNumber = 0;
+
+let adventureCorrectAnswer = 0;
+
+let adventureA = 0;
+let adventureB = 0;
+
+let adventureDoors = [];
+
+let adventureQuestionsNeeded = 2;
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+let loading = 0;
+
+const loadingProgress =
+    document.getElementById("loadingProgress");
+
+const loadingPercent =
+    document.getElementById("loadingPercent");
+
+const pressPlay =
+    document.getElementById("pressPlay");
+
+const loadingTimer =
+    setInterval(() => {
+
+        loading += Math.floor(Math.random() * 7) + 2;
+
+        if(loading >= 100){
+
+            loading = 100;
+
+            clearInterval(loadingTimer);
+
+            loadingProgress.style.width =
+                "100%";
+
+            loadingPercent.innerText =
+                "100% - Math World Ready!";
+
+            pressPlay.style.display =
+                "inline-block";
+
+            return;
+        }
+
+        loadingProgress.style.width =
+            loading + "%";
+
+        loadingPercent.innerText =
+            loading + "%";
+
+    },150);
+
+
+/* =====================================================
+   START ADVENTURE
+===================================================== */
+
+function startAdventure(){
+
+    document.getElementById("loadingScreen").style.display =
+        "none";
+
+    document.getElementById("game").style.display =
+        "block";
+
+    resetGame();
+}
+
+
+/* =====================================================
+   RESET GAME
+===================================================== */
+
+function resetGame(){
+
+    score = 0;
+
+    lives = 3;
+
+    currentLevel = 1;
+
+    questionNumber = 1;
+
+    totalItems = 0;
+
+    mistakesThisLevel = 0;
+
+    adventureActive = false;
+
+    updateStats();
+
+    closePopups();
+
+    closeAdventure();
+
+    backToWorld();
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats(){
+
+    document.getElementById("score").innerText =
+        score;
+
+    document.getElementById("lives").innerText =
+        lives;
+
+    document.getElementById("levelNumber").innerText =
+        currentLevel;
+
+    document.getElementById("items").innerText =
+        totalItems;
+}
+
+
+/* =====================================================
+   LEVEL STORIES
+===================================================== */
+
+const stories = {
+
+    1:
+    "🌱 Milo enters the peaceful meadow. Help him add the numbers growing beside the flowers.",
+
+    2:
+    "🍎 Milo reaches Apple Valley. Count the apples and solve each addition problem.",
+
+    3:
+    "🌳 The forest is full of friendly animals. Solve the math problems to find the secret path.",
+
+    4:
+    "🌸 The magical garden needs your help. Correct answers will make the flowers bloom.",
+
+    5:
+    "🪵 A wooden bridge is blocking Milo's path. Solve the addition challenges to cross it.",
+
+    6:
+    "💎 Shiny gems are hidden inside the Crystal Cave. Use your math skills to find them.",
+
+    7:
+    "🏰 Milo arrives at the Number Castle. The castle gate opens only when the answers are correct.",
+
+    8:
+    "☁️ Milo travels into the Sky World. Clouds are carrying mysterious number puzzles.",
+
+    9:
+    "⭐ The Star Valley is losing its light. Solve the challenges and collect the star power.",
+
+    10:
+    "🔮 The final Number Crystal is waiting! Complete the last challenges and restore Math World."
+
+};
+
+
+/* =====================================================
+   START LEVEL
+===================================================== */
+
+function startLevel(level){
+
+    closeAdventure();
+
+    currentLevel = level;
+
+    questionNumber = 1;
+
+    mistakesThisLevel = 0;
+
+    adventureActive = false;
+
+    document.getElementById("world").style.display =
+        "none";
+
+    document.getElementById("gamePanel").style.display =
+        "block";
+
+    document.getElementById("levelTitle").innerText =
+        "Level " + level;
+
+    document.getElementById("questionStory").innerText =
+        stories[level];
+
+    document.getElementById("feedback").innerText =
+        "";
+
+    updateStats();
+
+    generateQuestion();
+}
+
+
+/* =====================================================
+   QUESTION GENERATOR
+===================================================== */
+
+function generateQuestion(){
+
+    let max;
+
+    if(currentLevel <= 2){
+
+        max = 10;
+
+    }else if(currentLevel <= 4){
+
+        max = 20;
+
+    }else if(currentLevel <= 6){
+
+        max = 30;
+
+    }else if(currentLevel <= 8){
+
+        max = 50;
+
+    }else{
+
+        max = 100;
+
+    }
+
+    currentA =
+        Math.floor(Math.random() * (max + 1));
+
+    currentB =
+        Math.floor(Math.random() * (max + 1));
+
+    correctAnswer =
+        currentA + currentB;
+
+    document.getElementById("mathQuestion").innerText =
+        currentA + " + " + currentB + " = ?";
+
+    document.getElementById("questionCount").innerText =
+        "Question " +
+        questionNumber +
+        "/" +
+        questionsPerLevel;
+
+    let progress =
+        ((questionNumber - 1) /
+        questionsPerLevel) * 100;
+
+    document.getElementById("progressFill").style.width =
+        progress + "%";
+
+    createAnswers();
+}
+
+
+/* =====================================================
+   NORMAL ANSWERS
+===================================================== */
+
+function createAnswers(){
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+    let values = [
+        correctAnswer,
+        correctAnswer + randomOffset(),
+        Math.max(
+            0,
+            correctAnswer - randomOffset()
+        ),
+        correctAnswer + randomOffset()
+    ];
+
+    values = [...new Set(values)];
+
+    while(values.length < 4){
+
+        let extra =
+            correctAnswer +
+            Math.floor(Math.random() * 15) -
+            7;
+
+        if(
+            extra >= 0 &&
+            !values.includes(extra)
+        ){
+
+            values.push(extra);
+        }
+    }
+
+    values.sort(
+        () => Math.random() - .5
+    );
+
+    values.forEach(value => {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "answer";
+
+        button.innerText =
+            value;
+
+        button.onclick =
+            () => checkAnswer(
+                value,
+                button
+            );
+
+        answers.appendChild(button);
+
+    });
+}
+
+
+function randomOffset(){
+
+    return Math.floor(
+        Math.random() * 10
+    ) + 1;
+}
+
+
+/* =====================================================
+   CHECK NORMAL ANSWER
+===================================================== */
+
+function checkAnswer(value,button){
+
+    if(adventureActive){
+        return;
+    }
+
+    const allButtons =
+        document.querySelectorAll(".answer");
+
+    allButtons.forEach(btn => {
+
+        btn.disabled = true;
+
+    });
+
+
+    /* CORRECT */
+
+    if(value === correctAnswer){
+
+        button.classList.add("correct");
+
+        score +=
+            10 + currentLevel;
+
+        document.getElementById("feedback").innerText =
+            "🎉 Correct! Great job! +" +
+            (10 + currentLevel) +
+            " points!";
+
+        updateStats();
+
+
+        setTimeout(() => {
+
+            questionNumber++;
+
+            if(
+                questionNumber >
+                questionsPerLevel
+            ){
+
+                completeLevel();
+
+            }else{
+
+                generateQuestion();
+
+            }
+
+        },800);
+
+
+    }
+
+    /* WRONG */
+
+    else{
+
+        button.classList.add("wrong");
+
+        mistakesThisLevel++;
+
+        lives--;
+
+        updateStats();
+
+        document.getElementById("feedback").innerText =
+            "💡 Not quite! The correct answer was " +
+            correctAnswer +
+            ".";
+
+
+        /*
+         * TWO MISTAKES =
+         * ADVENTURE MODE
+         */
+
+        if(mistakesThisLevel >= 2){
+
+            setTimeout(() => {
+
+                startAdventureMode();
+
+            },900);
+
+            return;
+        }
+
+
+        if(lives <= 0){
+
+            setTimeout(
+                gameOver,
+                900
+            );
+
+        }else{
+
+            setTimeout(() => {
+
+                questionNumber++;
+
+                if(
+                    questionNumber >
+                    questionsPerLevel
+                ){
+
+                    completeLevel();
+
+                }else{
+
+                    generateQuestion();
+
+                }
+
+            },1100);
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   ADVENTURE MODE START
+===================================================== */
+
+function startAdventureMode(){
+
+    adventureActive = true;
+
+    adventureQuestionNumber = 0;
+
+    document.getElementById("gamePanel").style.display =
+        "none";
+
+    document.getElementById("adventureMode").style.display =
+        "block";
+
+    document.getElementById("adventureMessage").style.display =
+        "none";
+
+    document.getElementById("adventureLives").innerHTML =
+        "❤️ Lives: <span id='adventureLifeNumber'>" +
+        lives +
+        "</span>";
+
+    showAdventureIntro();
+
+}
+
+
+/* =====================================================
+   ADVENTURE INTRO
+===================================================== */
+
+function showAdventureIntro(){
+
+    const questionBox =
+        document.getElementById(
+            "adventureQuestionBox"
+        );
+
+    questionBox.innerHTML = `
+
+        <h2>🏃 RUN, MILO, RUN!</h2>
+
+        <div id="adventureHint">
+
+            You made 2 mistakes in Level
+            ${currentLevel}!
+
+            <br><br>
+
+            Milo found two mysterious doors.
+
+            <br>
+
+            Solve the math problem and
+            choose the correct door!
+
+        </div>
+
+        <button
+            onclick="beginAdventureQuestions()"
+            style="
+                margin-top:15px;
+                padding:15px 30px;
+                background:#55bd45;
+                color:white;
+                border:4px solid #367b2c;
+                box-shadow:0 5px 0 #24521d;
+                font-size:20px;
+                font-weight:bold;
+            ">
+
+            🚪 START ADVENTURE
+
+        </button>
+    `;
+
+}
+
+
+/* =====================================================
+   BEGIN ADVENTURE QUESTIONS
+===================================================== */
+
+function beginAdventureQuestions(){
+
+    adventureQuestionNumber = 0;
+
+    showAdventureQuestion();
+
+}
+
+
+/* =====================================================
+   ADVENTURE QUESTION
+===================================================== */
+
+function showAdventureQuestion(){
+
+    adventureQuestionNumber++;
+
+    let max;
+
+    if(currentLevel <= 2){
+
+        max = 10;
+
+    }else if(currentLevel <= 4){
+
+        max = 20;
+
+    }else if(currentLevel <= 6){
+
+        max = 30;
+
+    }else if(currentLevel <= 8){
+
+        max = 50;
+
+    }else{
+
+        max = 100;
+
+    }
+
+
+    adventureA =
+        Math.floor(
+            Math.random() *
+            (max + 1)
+        );
+
+    adventureB =
+        Math.floor(
+            Math.random() *
+            (max + 1)
+        );
+
+    adventureCorrectAnswer =
+        adventureA + adventureB;
+
+
+    /*
+     * Make one correct door
+     * and one wrong door.
+     */
+
+    let wrongAnswer;
+
+    do{
+
+        let offset =
+            Math.floor(
+                Math.random() * 10
+            ) + 1;
+
+        if(Math.random() > .5){
+
+            wrongAnswer =
+                adventureCorrectAnswer +
+                offset;
+
+        }else{
+
+            wrongAnswer =
+                adventureCorrectAnswer -
+                offset;
+
+        }
+
+    }while(
+        wrongAnswer < 0 ||
+        wrongAnswer ===
+        adventureCorrectAnswer
+    );
+
+
+    adventureDoors =
+        Math.random() > .5
+        ?
+        [
+            adventureCorrectAnswer,
+            wrongAnswer
+        ]
+        :
+        [
+            wrongAnswer,
+            adventureCorrectAnswer
+        ];
+
+
+    document.getElementById(
+        "adventureQuestionBox"
+    ).innerHTML = `
+
+        <h2>
+            🚪 ADVENTURE QUESTION
+        </h2>
+
+        <div id="adventureHint">
+
+            Question
+            ${adventureQuestionNumber}
+            of
+            ${adventureQuestionsNeeded}
+
+            <br>
+
+            Choose the correct door!
+
+        </div>
+
+        <div id="adventureQuestionText">
+
+            ${adventureA}
+            +
+            ${adventureB}
+            = ?
+
+        </div>
+
+        <div class="doors">
+
+            <button
+                class="door"
+                onclick="chooseAdventureDoor(0)">
+
+                <span>
+                    ${adventureDoors[0]}
+                </span>
+
+            </button>
+
+            <button
+                class="door"
+                onclick="chooseAdventureDoor(1)">
+
+                <span>
+                    ${adventureDoors[1]}
+                </span>
+
+            </button>
+
+        </div>
+    `;
+
+}
+
+
+/* =====================================================
+   CHOOSE ADVENTURE DOOR
+===================================================== */
+
+function chooseAdventureDoor(index){
+
+    if(!adventureActive){
+        return;
+    }
+
+    const selected =
+        adventureDoors[index];
+
+
+    /* CORRECT DOOR */
+
+    if(
+        selected ===
+        adventureCorrectAnswer
+    ){
+
+        score += 15;
+
+        updateStats();
+
+        showAdventureMessage(
+            "🎉 Correct Door! Milo keeps running! +15 ⭐",
+            true
+        );
+
+
+        setTimeout(() => {
+
+            if(
+                adventureQuestionNumber >=
+                adventureQuestionsNeeded
+            ){
+
+                finishAdventureMode();
+
+            }else{
+
+                showAdventureQuestion();
+
+            }
+
+        },1000);
+
+    }
+
+
+    /* WRONG DOOR */
+
+    else{
+
+        lives--;
+
+        updateStats();
+
+        showAdventureMessage(
+            "❌ Wrong Door! Try the next path!",
+            false
+        );
+
+        updateAdventureLives();
+
+
+        if(lives <= 0){
+
+            setTimeout(() => {
+
+                closeAdventure();
+
+                gameOver();
+
+            },1000);
+
+            return;
+        }
+
+
+        setTimeout(() => {
+
+            /*
+             * Wrong door does not
+             * count as an adventure
+             * question.
+             */
+
+            showAdventureQuestion();
+
+        },1000);
+
+    }
+
+}
+
+
+/* =====================================================
+   ADVENTURE MESSAGE
+===================================================== */
+
+function showAdventureMessage(
+    message,
+    success
+){
+
+    const box =
+        document.getElementById(
+            "adventureMessage"
+        );
+
+    box.innerText =
+        message;
+
+    box.style.display =
+        "block";
+
+    if(success){
+
+        box.style.borderColor =
+            "#3b9635";
+
+    }else{
+
+        box.style.borderColor =
+            "#c33";
+
+    }
+
+
+    setTimeout(() => {
+
+        box.style.display =
+            "none";
+
+    },850);
+
+}
+
+
+/* =====================================================
+   UPDATE ADVENTURE LIVES
+===================================================== */
+
+function updateAdventureLives(){
+
+    const element =
+        document.getElementById(
+            "adventureLifeNumber"
+        );
+
+    if(element){
+
+        element.innerText =
+            lives;
+
+    }
+
+}
+
+
+/* =====================================================
+   FINISH ADVENTURE
+===================================================== */
+
+function finishAdventureMode(){
+
+    adventureActive = false;
+
+    mistakesThisLevel = 0;
+
+    closeAdventure();
+
+    document.getElementById("gamePanel").style.display =
+        "block";
+
+    document.getElementById("feedback").innerText =
+        "🏃 Amazing! Milo escaped the adventure path!";
+
+    updateStats();
+
+
+    /*
+     * Continue the normal level
+     */
+
+    questionNumber++;
+
+    if(
+        questionNumber >
+        questionsPerLevel
+    ){
+
+        completeLevel();
+
+    }else{
+
+        generateQuestion();
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE ADVENTURE
+===================================================== */
+
+function closeAdventure(){
+
+    adventureActive = false;
+
+    document.getElementById("adventureMode").style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   LEVEL COMPLETE
+===================================================== */
+
+function completeLevel(){
+
+    totalItems++;
+
+    updateStats();
+
+    let rewards = [
+
+        "🌱",
+        "🍎",
+        "💎",
+        "🌸",
+        "🪵",
+        "🔮",
+        "🗝️",
+        "☁️",
+        "⭐",
+        "🏆"
+
+    ];
+
+    document.getElementById("rewardIcon").innerText =
+        rewards[currentLevel - 1];
+
+    document.getElementById("completeTitle").innerText =
+        "🎉 Level " +
+        currentLevel +
+        " Complete!";
+
+    document.getElementById("completeText").innerText =
+        "Amazing! You solved the challenges and collected a magical item.";
+
+    document.getElementById("completePopup").style.display =
+        "flex";
+
+    createConfetti();
+
+
+    if(currentLevel >= 10){
+
+        document.querySelector(
+            "#completePopup .continue"
+        ).innerText =
+            "🏆 FINISH QUEST";
+
+        document.querySelector(
+            "#completePopup .continue"
+        ).onclick =
+            showVictory;
+
+    }else{
+
+        document.querySelector(
+            "#completePopup .continue"
+        ).innerText =
+            "▶ NEXT LEVEL";
+
+        document.querySelector(
+            "#completePopup .continue"
+        ).onclick =
+            nextLevel;
+
+    }
+
+}
+
+
+/* =====================================================
+   NEXT LEVEL
+===================================================== */
+
+function nextLevel(){
+
+    closePopups();
+
+    if(currentLevel >= 10){
+
+        showVictory();
+
+        return;
+    }
+
+    currentLevel++;
+
+    questionNumber = 1;
+
+    mistakesThisLevel = 0;
+
+    updateStats();
+
+    document.getElementById("gamePanel").style.display =
+        "block";
+
+    document.getElementById("world").style.display =
+        "none";
+
+    document.getElementById("levelTitle").innerText =
+        "Level " +
+        currentLevel;
+
+    document.getElementById("questionStory").innerText =
+        stories[currentLevel];
+
+    generateQuestion();
+
+}
+
+
+/* =====================================================
+   GAME OVER
+===================================================== */
+
+function gameOver(){
+
+    closeAdventure();
+
+    document.getElementById("gameOverText").innerText =
+        "Milo ran out of lives. Your score was " +
+        score +
+        ". Don't worry — mistakes help us learn!";
+
+    document.getElementById("gameOverPopup").style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartGame(){
+
+    closePopups();
+
+    closeAdventure();
+
+    score = 0;
+
+    lives = 3;
+
+    currentLevel = 1;
+
+    questionNumber = 1;
+
+    totalItems = 0;
+
+    mistakesThisLevel = 0;
+
+    adventureActive = false;
+
+    updateStats();
+
+    document.getElementById("gamePanel").style.display =
+        "none";
+
+    document.getElementById("world").style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   VICTORY
+===================================================== */
+
+function showVictory(){
+
+    closePopups();
+
+    closeAdventure();
+
+    document.getElementById("finalScore").innerText =
+        score;
+
+    document.getElementById("victoryPopup").style.display =
+        "flex";
+
+    createConfetti();
+
+}
+
+
+/* =====================================================
+   BACK TO WORLD
+===================================================== */
+
+function backToWorld(){
+
+    closePopups();
+
+    closeAdventure();
+
+    document.getElementById("gamePanel").style.display =
+        "none";
+
+    document.getElementById("world").style.display =
+        "block";
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   POPUPS
+===================================================== */
+
+function closePopups(){
+
+    document.querySelectorAll(".overlay")
+        .forEach(popup => {
+
+            popup.style.display =
+                "none";
+
+        });
+
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+function createConfetti(){
+
+    for(
+        let i = 0;
+        i < 35;
+        i++
+    ){
+
+        const piece =
+            document.createElement("div");
+
+        piece.className =
+            "confetti";
+
+        piece.style.left =
+            Math.random() *
+            100 +
+            "vw";
+
+        piece.style.animationDelay =
+            Math.random() *
+            1.5 +
+            "s";
+
+        piece.style.background = [
+
+            "#ff5252",
+            "#ffd740",
+            "#69f0ae",
+            "#40c4ff",
+            "#b388ff"
+
+        ][
+            Math.floor(
+                Math.random() * 5
+            )
+        ];
+
+        document.body.appendChild(
+            piece
+        );
+
+        setTimeout(() => {
+
+            piece.remove();
+
+        },4000);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
