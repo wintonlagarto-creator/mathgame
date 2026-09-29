@@ -1,0 +1,1094 @@
+/* =====================================================
+   MATH QUEST - 2D GAME LOADING SCREEN
+===================================================== */
+
+#loadingScreen {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: #72c7e5;
+
+    z-index: 99999 !important;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    image-rendering: pixelated;
+}
+
+
+/* =====================================================
+   SKY
+===================================================== */
+
+.game-sky {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            #62c4e8 0%,
+            #a8e9f7 65%,
+            #75cf58 65%,
+            #75cf58 100%
+        );
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   CLOUDS
+===================================================== */
+
+.pixel-cloud {
+    position: absolute;
+
+    width: 100px;
+    height: 25px;
+
+    background: white;
+
+    border-radius: 4px;
+
+    opacity: .9;
+
+    z-index: 1;
+
+    animation:
+        cloudMove 25s linear infinite;
+}
+
+.pixel-cloud::before,
+.pixel-cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+.pixel-cloud::before {
+
+    width: 40px;
+    height: 40px;
+
+    left: 15px;
+    top: -22px;
+
+}
+
+.pixel-cloud::after {
+
+    width: 50px;
+    height: 50px;
+
+    right: 12px;
+    top: -30px;
+
+}
+
+.cloud-a {
+    top: 12%;
+    left: -150px;
+}
+
+.cloud-b {
+
+    top: 25%;
+    left: -300px;
+
+    animation-delay: 7s;
+
+}
+
+.cloud-c {
+
+    top: 8%;
+    left: -500px;
+
+    animation-delay: 14s;
+
+}
+
+@keyframes cloudMove {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(130vw);
+    }
+
+}
+
+
+/* =====================================================
+   FLOATING NUMBERS
+===================================================== */
+
+.floating-number {
+
+    position: absolute;
+
+    z-index: 2;
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+    color: #ffffff;
+
+    text-shadow:
+        3px 3px 0 #34789b;
+
+    animation:
+        numberFloat 3s ease-in-out infinite;
+
+}
+
+.n1 {
+    top: 15%;
+    left: 8%;
+}
+
+.n2 {
+    top: 35%;
+    left: 17%;
+
+    animation-delay: .5s;
+}
+
+.n3 {
+    top: 18%;
+    right: 15%;
+
+    animation-delay: 1s;
+}
+
+.n4 {
+    top: 40%;
+    right: 8%;
+
+    animation-delay: 1.5s;
+}
+
+.n5 {
+    top: 10%;
+    left: 30%;
+
+    animation-delay: .8s;
+}
+
+.n6 {
+    top: 50%;
+    left: 7%;
+
+    animation-delay: 1.2s;
+}
+
+.n7 {
+    top: 48%;
+    right: 18%;
+
+    animation-delay: 1.8s;
+}
+
+@keyframes numberFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+.pixel-star {
+
+    position: absolute;
+
+    z-index: 3;
+
+    color: #fff15c;
+
+    font-size: 30px;
+
+    text-shadow:
+        3px 3px 0 #9b7a00;
+
+    animation:
+        starBlink 1.5s infinite;
+
+}
+
+.star1 {
+    top: 12%;
+    right: 32%;
+}
+
+.star2 {
+    top: 32%;
+    left: 25%;
+
+    animation-delay: .5s;
+}
+
+.star3 {
+    top: 25%;
+    right: 7%;
+
+    animation-delay: 1s;
+}
+
+@keyframes starBlink {
+
+    50% {
+        opacity: .35;
+
+        transform: scale(.8);
+    }
+
+}
+
+
+/* =====================================================
+   MOUNTAINS
+===================================================== */
+
+.mountain {
+
+    position: absolute;
+
+    bottom: 35%;
+
+    width: 0;
+    height: 0;
+
+    border-left: 130px solid transparent;
+    border-right: 130px solid transparent;
+    border-bottom: 180px solid #579a65;
+
+    z-index: 2;
+
+}
+
+.mountain-left {
+    left: 0;
+}
+
+.mountain-middle {
+
+    left: 35%;
+
+    transform: scale(1.2);
+
+}
+
+.mountain-right {
+    right: 0;
+}
+
+
+/* =====================================================
+   GROUND
+===================================================== */
+
+.game-ground {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 35%;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #65c94e 0px,
+            #65c94e 35px,
+            #5abe45 35px,
+            #5abe45 70px
+        );
+
+    border-top: 8px solid #397c31;
+
+    z-index: 4;
+
+}
+
+
+/* =====================================================
+   TREES
+===================================================== */
+
+.game-tree {
+
+    position: absolute;
+
+    bottom: 20%;
+
+    width: 35px;
+    height: 110px;
+
+    background: #70442b;
+
+    z-index: 5;
+
+}
+
+.game-tree::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    left: -32px;
+    top: -70px;
+
+    background: #2e9b3f;
+
+    border-radius: 50%;
+
+    box-shadow:
+        30px -25px 0 #3caf47,
+        60px 0 0 #278c36;
+
+}
+
+.tree-left-1 {
+    left: 5%;
+}
+
+.tree-left-2 {
+    left: 20%;
+
+    transform: scale(.8);
+}
+
+.tree-right-1 {
+    right: 20%;
+
+    transform: scale(.9);
+}
+
+.tree-right-2 {
+    right: 5%;
+}
+
+
+/* =====================================================
+   LOADING CARD
+===================================================== */
+
+.loading-card-2d {
+
+    position: relative;
+
+    z-index: 50;
+
+    width: min(850px, 86vw);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 25px 30px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    background: #fff;
+
+    border: 6px solid #333;
+
+    box-shadow:
+        10px 10px 0 #222;
+
+}
+
+
+/* =====================================================
+   CRYSTAL
+===================================================== */
+
+.number-crystal-2d {
+
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7560ff,
+            #42c9f5
+        );
+
+    border: 5px solid #fff;
+
+    outline: 5px solid #5840a5;
+
+    transform: rotate(45deg);
+
+}
+
+.number-crystal-2d span {
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+    transform: rotate(-45deg);
+
+    color: #263c52;
+
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.loading-card-2d h1 {
+
+    margin: 12px 0 5px;
+
+    font-size:
+        clamp(42px, 6vw, 65px);
+
+    color: #3ca43a;
+
+    text-shadow:
+        4px 4px 0 #256326;
+
+}
+
+.loading-card-2d h2 {
+
+    margin: 0 0 15px;
+
+    color: #555;
+
+    font-size: 22px;
+
+}
+
+
+/* =====================================================
+   STORY
+===================================================== */
+
+.story-box {
+
+    background: #fff4bd;
+
+    border: 4px solid #b48b24;
+
+    padding: 12px 18px;
+
+    margin: 10px 0;
+
+    text-align: left;
+
+}
+
+.story-title {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #805c00;
+
+    margin-bottom: 8px;
+
+}
+
+.story-box p {
+
+    margin: 5px 0;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.game-features {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 8px;
+
+    margin: 12px 0;
+
+}
+
+.feature {
+
+    padding: 8px;
+
+    background: #dff7ff;
+
+    border: 3px solid #438aa8;
+
+    font-size: 11px;
+
+}
+
+.feature span {
+
+    display: block;
+
+    font-size: 25px;
+
+}
+
+.feature b {
+
+    display: block;
+
+    margin-top: 3px;
+
+}
+
+
+/* =====================================================
+   MILO
+===================================================== */
+
+.milo-2d {
+
+    position: relative;
+
+    width: 60px;
+    height: 85px;
+
+    margin: 8px auto;
+
+}
+
+.milo-face {
+
+    position: absolute;
+
+    left: 8px;
+    top: 5px;
+
+    width: 45px;
+    height: 45px;
+
+    background: #ffd39b;
+
+    border: 4px solid #333;
+
+    border-radius: 50%;
+
+}
+
+.milo-hair {
+
+    position: absolute;
+
+    z-index: 3;
+
+    left: 8px;
+    top: 0;
+
+    width: 45px;
+    height: 20px;
+
+    background: #59351f;
+
+    border-radius: 20px 20px 5px 5px;
+
+}
+
+.eye {
+
+    position: absolute;
+
+    top: 17px;
+
+    width: 5px;
+    height: 7px;
+
+    background: #222;
+
+}
+
+.eye-left {
+    left: 12px;
+}
+
+.eye-right {
+    right: 12px;
+}
+
+.milo-smile {
+
+    position: absolute;
+
+    bottom: 5px;
+    left: 15px;
+
+    font-size: 20px;
+
+}
+
+.milo-body {
+
+    position: absolute;
+
+    bottom: 0;
+    left: 10px;
+
+    width: 45px;
+    height: 38px;
+
+    background: #4b8cff;
+
+    border: 4px solid #333;
+
+    border-radius: 10px 10px 4px 4px;
+
+}
+
+
+/* =====================================================
+   MILO MESSAGE
+===================================================== */
+
+.milo-message {
+
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    background: #eef7ff;
+
+    border: 3px solid #4787b1;
+
+    font-size: 13px;
+
+}
+
+.milo-message span {
+
+    color: #444;
+
+}
+
+
+/* =====================================================
+   LOADING BAR
+===================================================== */
+
+.loading-label {
+
+    margin-top: 12px;
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+}
+
+.loading-bar-2d {
+
+    width: 100%;
+
+    height: 22px;
+
+    margin-top: 5px;
+
+    background: #333;
+
+    border: 4px solid #222;
+
+    box-sizing: border-box;
+
+}
+
+.loading-fill-2d {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #58cf45;
+
+    transition: width .1s linear;
+
+}
+
+#loadingPercent2D {
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+    margin: 5px;
+
+}
+
+
+/* =====================================================
+   PLAY BUTTON
+===================================================== */
+
+.play-button-2d {
+
+    display: none;
+
+    padding: 12px 30px;
+
+    margin: 10px auto 0;
+
+    background: #51bd43;
+
+    color: white;
+
+    border: 4px solid #32772b;
+
+    box-shadow:
+        0 6px 0 #24551e;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+.play-button-2d:hover {
+
+    background: #62d751;
+
+    transform: translateY(-2px);
+
+}
+
+.play-button-2d:active {
+
+    transform: translateY(5px);
+
+    box-shadow:
+        0 1px 0 #24551e;
+
+}
+
+
+/* =====================================================
+   SHOP
+===================================================== */
+
+.math-shop {
+
+    position: absolute;
+
+    left: 3%;
+
+    bottom: 10%;
+
+    z-index: 20;
+
+    width: 170px;
+
+    background: #fff;
+
+    border: 5px solid #333;
+
+    box-shadow:
+        6px 6px 0 #222;
+
+}
+
+.shop-sign {
+
+    padding: 8px;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    background: #ffcf4a;
+
+    border-bottom: 4px solid #333;
+
+}
+
+.shop-items {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    padding: 8px;
+
+}
+
+.shop-item {
+
+    text-align: center;
+
+    font-size: 10px;
+
+}
+
+.shop-icon {
+
+    font-size: 25px;
+
+}
+
+.shop-item b {
+
+    display: block;
+
+    color: #d18b00;
+
+}
+
+
+/* =====================================================
+   COINS
+===================================================== */
+
+.coin {
+
+    position: absolute;
+
+    z-index: 15;
+
+    font-size: 30px;
+
+    animation:
+        coinBounce 2s infinite;
+
+}
+
+.coin1 {
+
+    left: 30%;
+
+    bottom: 12%;
+
+}
+
+.coin2 {
+
+    left: 35%;
+
+    bottom: 20%;
+
+    animation-delay: .4s;
+
+}
+
+.coin3 {
+
+    right: 30%;
+
+    bottom: 15%;
+
+    animation-delay: .8s;
+
+}
+
+.coin4 {
+
+    right: 10%;
+
+    bottom: 28%;
+
+    animation-delay: 1.2s;
+
+}
+
+@keyframes coinBounce {
+
+    50% {
+
+        transform:
+            translateY(-12px)
+            rotate(10deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   WELCOME SIGN
+===================================================== */
+
+.game-sign {
+
+    position: absolute;
+
+    right: 4%;
+
+    bottom: 12%;
+
+    z-index: 20;
+
+    padding: 10px 15px;
+
+    background: #b8793e;
+
+    border: 5px solid #5a341e;
+
+    color: white;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    box-shadow:
+        5px 5px 0 #333;
+
+}
+
+.game-sign small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #fff36c;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .loading-card-2d {
+
+        width: 90vw;
+
+        padding: 20px;
+
+    }
+
+    .math-shop,
+    .game-sign {
+
+        display: none;
+
+    }
+
+    .game-features {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .loading-card-2d {
+
+        width: 94vw;
+
+        max-height: 92vh;
+
+        padding: 15px;
+
+    }
+
+    .loading-card-2d h1 {
+
+        font-size: 38px;
+
+    }
+
+    .loading-card-2d h2 {
+
+        font-size: 16px;
+
+    }
+
+    .story-box p {
+
+        font-size: 12px;
+
+    }
+
+    .feature {
+
+        font-size: 9px;
+
+    }
+
+    .floating-number {
+
+        font-size: 25px;
+
+    }
+
+    .coin {
+
+        font-size: 22px;
+
+    }
+
+}

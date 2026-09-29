@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math Quest - Kids Math Adventure</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Math Quest 3D - Kids Math Adventure</title>
 
 <style>
 *{
@@ -13,20 +14,18 @@
     font-family:Arial,sans-serif;
 }
 
-body{
-    min-height:100vh;
-    overflow-x:hidden;
-    background:#87ceeb;
-    color:#263238;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
 }
 
-button{
-    cursor:pointer;
-    border:none;
+body{
+    background:#07152f;
 }
 
 /* =====================================================
-   LOADING SCREEN
+   LOADING
 ===================================================== */
 
 #loadingScreen{
@@ -34,40 +33,39 @@ button{
     inset:0;
     z-index:9999;
     overflow:hidden;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
     background:
         linear-gradient(
-            to bottom,
-            #4db8ff 0%,
-            #9ee5ff 55%,
-            #73c94d 55%,
-            #73c94d 100%
+            #55cfff 0%,
+            #baf5ff 46%,
+            #7dd477 47%,
+            #32964a 100%
         );
 }
 
 .sun{
     position:absolute;
-    top:50px;
-    right:9%;
-    width:100px;
-    height:100px;
-    background:#ffd83d;
+    width:120px;
+    height:120px;
+    right:8%;
+    top:8%;
     border-radius:50%;
-    box-shadow:0 0 45px #fff29a;
+    background:#ffe66d;
+    box-shadow:0 0 70px #fff5a0;
+    animation:sunFloat 4s infinite ease-in-out;
+}
+
+@keyframes sunFloat{
+    50%{transform:translateY(15px)}
 }
 
 .cloud{
     position:absolute;
-    width:120px;
-    height:35px;
+    width:160px;
+    height:50px;
+    border-radius:50px;
     background:white;
-    border-radius:30px;
     opacity:.9;
-    animation:cloudMove 18s linear infinite;
+    animation:cloudMove 20s linear infinite;
 }
 
 .cloud:before,
@@ -79,1277 +77,1017 @@ button{
 }
 
 .cloud:before{
-    width:55px;
-    height:55px;
+    width:70px;
+    height:70px;
     left:20px;
-    top:-25px;
+    top:-35px;
 }
 
 .cloud:after{
-    width:65px;
-    height:65px;
+    width:85px;
+    height:85px;
     right:15px;
-    top:-30px;
+    top:-42px;
 }
 
-.cloud1{
-    top:100px;
-    left:-160px;
-}
-
+.cloud1{top:15%;left:-200px}
 .cloud2{
-    top:190px;
+    top:32%;
     left:-300px;
     transform:scale(.7);
-    animation-delay:6s;
+    animation-duration:28s;
+}
+.cloud3{
+    top:8%;
+    left:-400px;
+    transform:scale(.5);
+    animation-duration:35s;
 }
 
 @keyframes cloudMove{
-    from{transform:translateX(0);}
-    to{transform:translateX(130vw);}
+    to{
+        transform:translateX(calc(100vw + 700px));
+    }
+}
+
+.mountains{
+    position:absolute;
+    bottom:27%;
+    width:100%;
+    height:200px;
 }
 
 .mountain{
     position:absolute;
-    bottom:40%;
+    bottom:0;
+    width:0;
+    height:0;
+    border-left:180px solid transparent;
+    border-right:180px solid transparent;
+    border-bottom:190px solid #438c69;
+}
+
+.mountain1{left:3%}
+.mountain2{
+    left:33%;
+    border-left-width:230px;
+    border-right-width:230px;
+    border-bottom-color:#347859;
+}
+.mountain3{
+    right:4%;
+    border-left-width:200px;
+    border-right-width:200px;
+    border-bottom-color:#4d9869;
+}
+
+.loadingGround{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:30%;
+    background:
+        repeating-linear-gradient(
+            135deg,
+            #51b95a 0 20px,
+            #46aa51 20px 40px
+        );
+}
+
+.loadingRoad{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:85px;
+    background:#4e5665;
+    border-top:6px solid #343b48;
+    border-bottom:6px solid #343b48;
+}
+
+.loadingRoad:after{
+    content:"";
+    position:absolute;
+    top:34px;
+    width:100%;
+    height:10px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            white 0 60px,
+            transparent 60px 120px
+        );
+}
+
+/* =====================================================
+   MILO
+===================================================== */
+
+.milo{
+    position:absolute;
+    width:75px;
+    height:115px;
+    z-index:10;
+}
+
+.milo .head{
+    position:absolute;
+    width:58px;
+    height:58px;
+    left:8px;
+    top:0;
+    border-radius:50%;
+    background:#ffd3a3;
+    border:5px solid #222;
+    z-index:3;
+}
+
+.milo .hair{
+    position:absolute;
+    width:50px;
+    height:25px;
+    left:12px;
+    top:-4px;
+    background:#6b3e20;
+    border-radius:50% 50% 25% 25%;
+    z-index:4;
+}
+
+.milo .eye{
+    position:absolute;
+    width:8px;
+    height:11px;
+    background:#222;
+    border-radius:50%;
+    top:22px;
+    z-index:5;
+}
+
+.milo .eye.left{left:20px}
+.milo .eye.right{right:20px}
+
+.milo .body{
+    position:absolute;
+    left:10px;
+    bottom:17px;
+    width:55px;
+    height:55px;
+    border-radius:14px 14px 8px 8px;
+    background:#4b7bec;
+    border:5px solid #222;
+    z-index:2;
+}
+
+.milo .arm{
+    position:absolute;
+    width:13px;
+    height:42px;
+    background:#ffd3a3;
+    border:4px solid #222;
+    border-radius:12px;
+    bottom:25px;
+    z-index:1;
+}
+
+.milo .arm.left{
+    left:0;
+    transform:rotate(12deg);
+}
+
+.milo .arm.right{
+    right:0;
+    transform:rotate(-12deg);
+}
+
+.milo .leg{
+    position:absolute;
+    bottom:0;
+    width:17px;
+    height:35px;
+    background:#263238;
+    border-radius:8px;
+}
+
+.milo .leg.left{left:17px}
+.milo .leg.right{right:17px}
+
+.milo.running .leg.left{
+    animation:legLeft .25s infinite alternate;
+}
+
+.milo.running .leg.right{
+    animation:legRight .25s infinite alternate;
+}
+
+.milo.running .arm.left{
+    animation:armLeft .25s infinite alternate;
+}
+
+.milo.running .arm.right{
+    animation:armRight .25s infinite alternate;
+}
+
+@keyframes legLeft{
+    to{transform:rotate(-25deg) translateY(-5px)}
+}
+
+@keyframes legRight{
+    to{transform:rotate(25deg) translateY(-5px)}
+}
+
+@keyframes armLeft{
+    to{transform:rotate(-30deg)}
+}
+
+@keyframes armRight{
+    to{transform:rotate(30deg)}
+}
+
+/* =====================================================
+   LOADING CARD
+===================================================== */
+
+.loadingCard{
+    position:absolute;
+    z-index:20;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:min(470px,90vw);
+    padding:28px;
+    border-radius:28px;
+    background:rgba(255,255,255,.96);
+    text-align:center;
+    box-shadow:0 25px 70px rgba(0,0,0,.3);
+}
+
+.loadingCard h1{
+    color:#273c75;
+    font-size:clamp(28px,6vw,44px);
+    margin-bottom:5px;
+}
+
+.loadingCard p{
+    color:#666;
+    margin-bottom:18px;
+}
+
+.loadingBar{
+    height:20px;
+    overflow:hidden;
+    border-radius:20px;
+    background:#ddd;
+    border:2px solid #aaa;
+}
+
+.loadingProgress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        #48dbfb,
+        #5f27cd,
+        #ff9f43
+    );
+}
+
+.loadingPercent{
+    margin-top:8px;
+    color:#273c75;
+    font-weight:bold;
+}
+
+#pressPlay{
+    display:none;
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:0;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ff9f43,#ff6b6b);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 6px 0 #c94b4b;
+}
+
+/* =====================================================
+   GAME
+===================================================== */
+
+#game{
+    display:none;
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    background:#83d7ff;
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+    position:absolute;
+    z-index:200;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1150px,96%);
+    min-height:62px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:8px 12px;
+    border-radius:18px;
+    background:rgba(255,255,255,.94);
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+.gameTitle{
+    font-size:18px;
+    font-weight:900;
+    color:#273c75;
+}
+
+.stats{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:6px;
+}
+
+.stat{
+    padding:7px 10px;
+    border-radius:11px;
+    background:#f1f4ff;
+    color:#273c75;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.musicBtn,
+.shopBtn{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    background:#273c75;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.shopBtn{
+    background:#ff9f43;
+}
+
+/* =====================================================
+   WORLD
+===================================================== */
+
+.map{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    background:
+        linear-gradient(
+            #6fd6ff 0 42%,
+            #b9efff 42% 46%,
+            #65c866 46% 100%
+        );
+}
+
+.mapSun{
+    position:absolute;
+    right:8%;
+    top:90px;
+    width:95px;
+    height:95px;
+    border-radius:50%;
+    background:#ffe66d;
+    box-shadow:0 0 50px #fff09b;
+}
+
+.mapCloud{
+    position:absolute;
+    width:150px;
+    height:48px;
+    background:white;
+    border-radius:50px;
+    opacity:.8;
+    animation:mapCloud 35s linear infinite;
+}
+
+.mapCloud:before,
+.mapCloud:after{
+    content:"";
+    position:absolute;
+    background:white;
+    border-radius:50%;
+}
+
+.mapCloud:before{
+    width:60px;
+    height:60px;
+    top:-30px;
+    left:20px;
+}
+
+.mapCloud:after{
+    width:75px;
+    height:75px;
+    top:-38px;
+    right:15px;
+}
+
+.mapCloud.a{
+    left:-200px;
+    top:18%;
+}
+
+.mapCloud.b{
+    left:-300px;
+    top:31%;
+    animation-duration:45s;
+}
+
+@keyframes mapCloud{
+    to{
+        transform:translateX(calc(100vw + 600px));
+    }
+}
+
+/* =====================================================
+   MOUNTAINS / BACKGROUND
+===================================================== */
+
+.worldMountains{
+    position:absolute;
+    bottom:54%;
+    width:100%;
+    height:150px;
+}
+
+.worldMountain{
+    position:absolute;
+    bottom:0;
     width:0;
     height:0;
     border-left:150px solid transparent;
     border-right:150px solid transparent;
-    border-bottom:210px solid #5f9f69;
+    border-bottom:150px solid #5b9d70;
 }
 
-.mountain1{
-    left:3%;
+.worldMountain.one{left:5%}
+.worldMountain.two{
+    left:38%;
+    border-left-width:190px;
+    border-right-width:190px;
+    border-bottom-color:#4d8d63;
+}
+.worldMountain.three{
+    right:5%;
+    border-left-width:170px;
+    border-right-width:170px;
+    border-bottom-color:#609d6e;
 }
 
-.mountain2{
-    right:2%;
-    transform:scale(1.3);
+/* =====================================================
+   ROAD
+===================================================== */
+
+.road{
+    position:absolute;
+    left:-5%;
+    right:-5%;
+    top:47%;
+    height:155px;
+    transform:skewY(-2deg);
+    background:#555d6d;
+    border-top:8px solid #3b414e;
+    border-bottom:8px solid #3b414e;
+    box-shadow:0 12px 20px rgba(0,0,0,.15);
 }
+
+.road:after{
+    content:"";
+    position:absolute;
+    top:68px;
+    left:0;
+    width:100%;
+    height:12px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #ffe66d 0 70px,
+            transparent 70px 140px
+        );
+}
+
+/* =====================================================
+   TREES
+===================================================== */
 
 .tree{
     position:absolute;
-    bottom:0;
-    width:45px;
+    width:70px;
     height:120px;
-    background:#70472a;
+    z-index:5;
 }
 
 .tree:before{
     content:"";
     position:absolute;
-    width:110px;
-    height:110px;
-    left:-32px;
-    top:-65px;
-    background:#35a943;
-    border-radius:50%;
-    box-shadow:
-        35px -30px 0 #42b94e,
-        65px 5px 0 #2e963b;
+    left:28px;
+    bottom:0;
+    width:18px;
+    height:55px;
+    background:#704214;
+    border-radius:5px;
 }
 
-.tree1{left:7%;}
-.tree2{left:24%;transform:scale(.8);}
-.tree3{right:18%;transform:scale(1.1);}
-.tree4{right:5%;transform:scale(.75);}
-
-.loading-card{
-    position:relative;
-    z-index:20;
-
-    width:min(90%,650px);
-    padding:40px 30px;
-
-    text-align:center;
-
-    background:#fff;
-    border:6px solid #3c3c3c;
-
-    box-shadow:
-        12px 12px 0 #222,
-        0 25px 50px rgba(0,0,0,.3);
+.tree:after{
+    content:"🌳";
+    position:absolute;
+    font-size:65px;
 }
 
-.crystal{
-    width:90px;
-    height:90px;
-    margin:0 auto 20px;
+.tree1{left:4%;bottom:23%}
+.tree2{left:22%;bottom:18%;transform:scale(.8)}
+.tree3{right:6%;bottom:20%;transform:scale(1.1)}
+.tree4{right:24%;bottom:16%;transform:scale(.75)}
+.tree5{left:38%;bottom:18%;transform:scale(.65)}
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+/* =====================================================
+   BUILDINGS
+===================================================== */
 
-    font-size:55px;
-
-    background:linear-gradient(
-        135deg,
-        #8b5cff,
-        #47c9ff,
-        #70f5d0
-    );
-
-    transform:rotate(45deg);
-    border:5px solid #fff;
-
-    box-shadow:
-        0 0 0 5px #5940a8,
-        15px 15px 0 rgba(0,0,0,.25);
-
-    animation:crystalSpin 3s infinite;
+.building{
+    position:absolute;
+    bottom:53%;
+    width:95px;
+    height:135px;
+    border:5px solid #704214;
+    border-radius:8px 8px 0 0;
+    background:#ff9f43;
+    box-shadow:8px 8px 0 rgba(0,0,0,.15);
 }
 
-.crystal span{
-    transform:rotate(-45deg);
+.building:before{
+    content:"";
+    position:absolute;
+    width:25px;
+    height:30px;
+    top:20px;
+    left:12px;
+    background:#72d5ff;
+    border:4px solid #704214;
+    box-shadow:40px 0 #72d5ff,40px 0 0 4px #704214;
 }
 
-@keyframes crystalSpin{
-    0%,100%{
-        transform:rotate(45deg) scale(1);
-    }
-
-    50%{
-        transform:rotate(45deg) scale(1.12);
-    }
+.building:after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:31px;
+    width:28px;
+    height:45px;
+    background:#704214;
 }
 
-.loading-card h1{
-    font-family:"Courier New",monospace;
-    font-size:55px;
-    color:#42a83d;
-
-    text-shadow:
-        4px 4px 0 #266425;
-}
-
-.loading-card h2{
-    margin:10px 0;
-    color:#555;
-}
-
-.loading-card p{
-    font-size:18px;
-    line-height:1.5;
-    margin-bottom:22px;
-}
-
-.loading-bar{
-    width:100%;
-    height:28px;
-
-    background:#333;
-    border:4px solid #222;
-    overflow:hidden;
-}
-
-.loading-progress{
-    width:0%;
-    height:100%;
-    background:#63d54c;
-    transition:.15s;
-}
-
-#loadingPercent{
-    font-family:monospace;
-    font-weight:bold;
-    margin:8px;
-}
-
-.press-btn{
-    display:none;
-
-    padding:15px 38px;
-
-    background:#55bd45;
-    color:white;
-
-    font-size:22px;
-    font-weight:bold;
-
-    border:5px solid #367b2c;
-
-    box-shadow:0 7px 0 #24521d;
-
-    animation:pulse 1.2s infinite;
-}
-
-.press-btn:hover{
-    transform:translateY(3px);
-    box-shadow:0 4px 0 #24521d;
-}
-
-@keyframes pulse{
-    50%{
-        transform:scale(1.05);
-    }
+.building1{left:11%}
+.building2{
+    right:12%;
+    background:#a55eea;
+    transform:scale(.8);
 }
 
 /* =====================================================
-   MAIN GAME
+   COLLECTIBLES
 ===================================================== */
 
-#game{
-    display:none;
-    min-height:100vh;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #65c8f4 0%,
-            #b9ecff 42%,
-            #77c94d 42%,
-            #77c94d 100%
-        );
-}
-
-header{
-    min-height:75px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:10px 25px;
-
-    background:#fff;
-
-    border-bottom:5px solid #555;
-
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.logo{
-    font-family:monospace;
-    color:#45a83e;
-    font-size:28px;
-}
-
-.stats{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.stat{
-    padding:8px 13px;
-
-    background:#eee;
-
-    border:3px solid #555;
-
-    font-weight:bold;
-}
-
-/* Clouds */
-
-.game-cloud{
-    position:fixed;
-    width:120px;
-    height:35px;
-    background:#fff;
-    border-radius:30px;
-    opacity:.8;
-    z-index:0;
-}
-
-.game-cloud:before,
-.game-cloud:after{
-    content:"";
+.collectible{
     position:absolute;
-    background:white;
-    border-radius:50%;
+    z-index:15;
+    font-size:34px;
+    animation:collectFloat 2s infinite ease-in-out;
 }
 
-.game-cloud:before{
-    width:50px;
-    height:50px;
-    left:15px;
-    top:-25px;
+@keyframes collectFloat{
+    50%{
+        transform:translateY(-12px) rotate(8deg);
+    }
 }
 
-.game-cloud:after{
-    width:55px;
-    height:55px;
-    right:15px;
-    top:-27px;
-}
+.item1{left:13%;top:25%}
+.item2{left:39%;top:29%}
+.item3{right:22%;top:27%}
+.item4{right:8%;top:58%}
 
-.gc1{
-    top:110px;
-    left:5%;
-}
+/* =====================================================
+   LEVEL MAP
+===================================================== */
 
-.gc2{
-    top:170px;
-    right:8%;
-    transform:scale(.7);
-}
-
-/* World */
-
-#world{
-    position:relative;
-    z-index:2;
-    max-width:1100px;
-    margin:auto;
-    padding:35px 20px 70px;
-}
-
-.hero{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.hero h1{
-    font-family:monospace;
-    font-size:42px;
-    margin-bottom:8px;
-}
-
-.hero p{
-    font-size:18px;
-}
-
-/* Milo */
-
-.milo{
-    width:80px;
-    height:100px;
-    margin:20px auto;
-
-    position:relative;
-}
-
-.milo-head{
-    width:70px;
-    height:70px;
-    background:#f2b27b;
-    border:5px solid #333;
-    border-radius:50%;
-    margin:auto;
-    position:relative;
-}
-
-.milo-head:before{
-    content:"";
+.levelMap{
     position:absolute;
-    width:10px;
-    height:12px;
-    background:#222;
-    border-radius:50%;
-    left:15px;
-    top:28px;
-    box-shadow:28px 0 #222;
-}
-
-.milo-head:after{
-    content:"";
-    position:absolute;
-    width:20px;
-    height:7px;
-    background:#333;
-    left:20px;
-    top:48px;
-    border-radius:0 0 20px 20px;
-}
-
-.milo-body{
-    width:58px;
-    height:42px;
-    background:#3d8cff;
-    border:5px solid #333;
-    margin:auto;
-    border-radius:10px;
-}
-
-/* Story */
-
-.story-box{
-    max-width:850px;
-    margin:0 auto 30px;
-
-    padding:22px;
-
-    background:#fff6df;
-
-    border:4px solid #b7864b;
-
-    box-shadow:7px 7px 0 #76532d;
-
-    text-align:center;
-
-    font-size:18px;
-    line-height:1.6;
-}
-
-.story-box strong{
-    display:block;
-    font-size:24px;
-    margin-bottom:8px;
-}
-
-/* Levels */
-
-.levels{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+    z-index:30;
+    left:50%;
+    top:39%;
+    transform:translate(-50%,-50%);
+    width:min(1050px,92%);
+    height:230px;
 }
 
 .level{
-    background:white;
-
-    padding:22px;
-
-    text-align:center;
-
-    border:4px solid #555;
-
-    box-shadow:7px 7px 0 #292929;
-
-    transition:.2s;
-}
-
-.level:hover{
-    transform:translateY(-5px);
-}
-
-.level-icon{
-    font-size:55px;
-    margin-bottom:10px;
-}
-
-.level h3{
-    margin-bottom:8px;
-}
-
-.level p{
-    min-height:50px;
-    margin-bottom:15px;
-    line-height:1.4;
-}
-
-.level-btn{
-    padding:12px 22px;
-
-    background:#55bd45;
+    position:absolute;
+    width:78px;
+    height:78px;
+    border:5px solid white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#ffcf33,#ff8c42);
     color:white;
+    font-size:12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:
+        0 8px 0 rgba(0,0,0,.2),
+        0 0 20px rgba(255,255,255,.5);
+    animation:levelFloat 2.5s infinite ease-in-out;
+}
 
-    border:4px solid #367b2c;
+@keyframes levelFloat{
+    50%{margin-top:-8px}
+}
 
-    box-shadow:0 5px 0 #24521d;
+.level.locked{
+    background:#747b8b;
+    filter:grayscale(.5);
+}
 
-    font-weight:bold;
+.level.locked:after{
+    content:"🔒";
+    position:absolute;
+    font-size:25px;
+}
+
+.level.current{
+    box-shadow:
+        0 0 0 7px rgba(255,255,255,.6),
+        0 8px 0 rgba(0,0,0,.2),
+        0 0 35px #ffe66d;
+}
+
+.level.completed{
+    background:linear-gradient(135deg,#20bf6b,#0fb9b1);
+}
+
+.level.completed:after{
+    content:"✓";
+    position:absolute;
+    right:-5px;
+    top:-8px;
+    width:27px;
+    height:27px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#20bf6b;
+    border:3px solid white;
+}
+
+.level:nth-child(1){left:2%;top:100px}
+.level:nth-child(2){left:12%;top:25px}
+.level:nth-child(3){left:23%;top:110px}
+.level:nth-child(4){left:34%;top:30px}
+.level:nth-child(5){left:45%;top:115px}
+.level:nth-child(6){left:56%;top:30px}
+.level:nth-child(7){left:67%;top:105px}
+.level:nth-child(8){left:77%;top:25px}
+.level:nth-child(9){left:87%;top:105px}
+.level:nth-child(10){left:92%;top:25px}
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+#player{
+    position:absolute;
+    z-index:80;
+    width:75px;
+    height:115px;
+    transform:translate(-50%,-50%);
+    transition:
+        left .8s cubic-bezier(.2,.8,.2,1),
+        top .8s cubic-bezier(.2,.8,.2,1);
+    pointer-events:none;
+}
+
+#player.bounce{
+    animation:playerBounce .7s ease;
+}
+
+@keyframes playerBounce{
+    40%{transform:translate(-50%,-70%) scale(1.1)}
+    70%{transform:translate(-50%,-45%) scale(.95)}
 }
 
 /* =====================================================
-   NORMAL GAME PANEL
+   QUESTION PANEL
 ===================================================== */
 
-#gamePanel{
-    display:none;
-
-    max-width:800px;
-    margin:auto;
-    padding:30px 20px 60px;
+.question-panel{
+    position:absolute;
+    z-index:500;
+    left:50%;
+    top:52%;
+    transform:translate(-50%,-50%);
+    width:min(540px,92vw);
+    padding:25px;
+    border-radius:25px;
+    background:rgba(255,255,255,.97);
     text-align:center;
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
-.back-btn{
-    padding:11px 20px;
-    margin-bottom:20px;
-
-    background:#607d8b;
-    color:#fff;
-
-    border:4px solid #455a64;
-    box-shadow:0 5px 0 #263238;
-
-    font-weight:bold;
+.hidden{
+    display:none!important;
 }
 
-.question-card{
-    background:#fff;
-
-    padding:30px;
-
-    border:5px solid #555;
-
-    box-shadow:9px 9px 0 #292929;
+.question-title{
+    color:#273c75;
+    font-size:20px;
+    font-weight:900;
 }
 
-.question-card h2{
-    font-family:monospace;
-    color:#45a83e;
-    margin-bottom:10px;
+.question-level{
+    color:#888;
+    font-size:13px;
+    margin-top:4px;
 }
 
-.question-story{
-    background:#fff6df;
-
-    padding:15px;
-
-    border:3px solid #b7864b;
-
-    margin-bottom:20px;
-
-    line-height:1.5;
+.question-text{
+    font-size:clamp(34px,7vw,55px);
+    font-weight:900;
+    margin:15px 0;
+    color:#222;
 }
 
-.progress{
-    height:18px;
-    background:#ddd;
-    border:3px solid #555;
-    margin:15px 0 25px;
-}
-
-.progress-fill{
-    width:0%;
-    height:100%;
-    background:#55bd45;
-    transition:.3s;
-}
-
-.math-question{
-    font-size:52px;
-    font-weight:bold;
-    margin:25px;
+.question-timer{
+    font-weight:900;
+    color:#e74c3c;
+    margin-bottom:14px;
 }
 
 .answers{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:15px;
+    gap:12px;
 }
 
 .answer{
-    padding:18px;
-
-    background:#5ebeff;
+    border:0;
+    padding:15px;
+    border-radius:15px;
+    background:#4b7bec;
     color:white;
-
-    font-size:30px;
-    font-weight:bold;
-
-    border:4px solid #3788ba;
-
-    box-shadow:0 5px 0 #286486;
-
-    transition:.15s;
+    font-size:23px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 5px 0 #3459b5;
 }
 
 .answer:hover{
-    transform:translateY(3px);
+    transform:translateY(-3px);
 }
 
 .answer.correct{
-    background:#55c94c;
+    background:#20bf6b;
 }
 
 .answer.wrong{
-    background:#e75a5a;
-}
-
-.feedback{
-    min-height:45px;
-
-    margin-top:20px;
-
-    font-size:22px;
-    font-weight:bold;
+    background:#eb4d4b;
 }
 
 /* =====================================================
-   ADVENTURE MODE
+   OVERLAYS
 ===================================================== */
 
-#adventureMode{
-    display:none;
-
-    position:fixed;
+.overlay,
+.shopOverlay{
+    position:absolute;
     inset:0;
-
-    z-index:700;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #52c8ff 0%,
-            #bdefff 48%,
-            #6fc447 48%,
-            #4a9e35 100%
-        );
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(7,21,47,.75);
+    backdrop-filter:blur(6px);
 }
 
-/* Adventure sky */
-
-.adventure-sun{
-    position:absolute;
-    width:90px;
-    height:90px;
-    right:8%;
-    top:55px;
-    border-radius:50%;
-    background:#ffe047;
-    box-shadow:0 0 40px #fff7a0;
+.overlay.show,
+.shopOverlay.show{
+    display:flex;
 }
 
-/* Adventure clouds */
-
-.adventure-cloud{
-    position:absolute;
-    width:130px;
-    height:38px;
+.card{
+    width:min(470px,92vw);
+    padding:30px;
+    border-radius:25px;
     background:white;
-    border-radius:30px;
-    opacity:.85;
-    animation:runCloud 9s linear infinite;
-}
-
-.adventure-cloud:before,
-.adventure-cloud:after{
-    content:"";
-    position:absolute;
-    background:white;
-    border-radius:50%;
-}
-
-.adventure-cloud:before{
-    width:55px;
-    height:55px;
-    left:15px;
-    top:-27px;
-}
-
-.adventure-cloud:after{
-    width:65px;
-    height:65px;
-    right:12px;
-    top:-30px;
-}
-
-.ac1{
-    top:100px;
-    left:10%;
-}
-
-.ac2{
-    top:190px;
-    left:60%;
-    transform:scale(.7);
-    animation-delay:3s;
-}
-
-@keyframes runCloud{
-    from{
-        transform:translateX(0);
-    }
-
-    to{
-        transform:translateX(-160px);
-    }
-}
-
-/* Adventure mountains */
-
-.adventure-mountain{
-    position:absolute;
-    bottom:38%;
-    width:0;
-    height:0;
-
-    border-left:180px solid transparent;
-    border-right:180px solid transparent;
-    border-bottom:230px solid #57955e;
-}
-
-.am1{
-    left:-30px;
-}
-
-.am2{
-    right:-50px;
-    transform:scale(1.2);
-}
-
-/* Ground */
-
-.adventure-ground{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:52%;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0 70px,
-            rgba(255,255,255,.08) 71px 74px
-        ),
-        #68b63e;
-
-    border-top:6px solid #477c2e;
-}
-
-/* Road */
-
-.adventure-road{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:5%;
-    height:145px;
-
-    background:#666;
-
-    border-top:8px solid #444;
-    border-bottom:8px solid #444;
-}
-
-.adventure-road:after{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    top:58px;
-    height:15px;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #ffe95c 0 90px,
-            transparent 90px 170px
-        );
-}
-
-/* Trees */
-
-.adventure-tree{
-    position:absolute;
-    bottom:34%;
-    width:30px;
-    height:90px;
-    background:#70472a;
-    z-index:3;
-}
-
-.adventure-tree:before{
-    content:"";
-    position:absolute;
-
-    width:85px;
-    height:85px;
-
-    left:-28px;
-    top:-65px;
-
-    background:#2e9e3d;
-
-    border-radius:50%;
-
-    box-shadow:
-        35px -20px 0 #42b84c,
-        55px 10px 0 #258c32;
-}
-
-.at1{left:8%;}
-.at2{left:25%;transform:scale(.75);}
-.at3{right:25%;transform:scale(.9);}
-.at4{right:8%;}
-
-/* Adventure header */
-
-.adventure-header{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-
-    z-index:20;
-
-    padding:16px;
-
     text-align:center;
-
-    color:white;
-
-    background:rgba(40,70,90,.75);
-
-    border-bottom:4px solid #293d48;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
 }
 
-.adventure-header h1{
-    font-family:monospace;
+.card h2{
+    color:#273c75;
+    margin-bottom:10px;
     font-size:30px;
 }
 
-.adventure-header p{
-    margin-top:5px;
+.card p{
+    color:#666;
+    line-height:1.5;
+    margin-bottom:18px;
 }
 
-/* Running character */
-
-.runner{
-    position:absolute;
-
-    left:10%;
-
-    bottom:17%;
-
-    width:80px;
-    height:120px;
-
-    z-index:15;
-
-    animation:
-        runnerBounce .38s infinite alternate,
-        runnerMove 2s infinite ease-in-out;
-}
-
-@keyframes runnerBounce{
-    from{
-        transform:translateY(0);
-    }
-
-    to{
-        transform:translateY(-13px);
-    }
-}
-
-@keyframes runnerMove{
-    0%,100%{
-        left:10%;
-    }
-
-    50%{
-        left:14%;
-    }
-}
-
-.runner-head{
-    position:absolute;
-
-    left:8px;
-    top:0;
-
-    width:64px;
-    height:64px;
-
-    background:#f2b27b;
-
-    border:5px solid #333;
-
-    border-radius:50%;
-}
-
-.runner-head:before{
-    content:"";
-
-    position:absolute;
-
-    width:9px;
-    height:11px;
-
-    background:#222;
-
-    border-radius:50%;
-
-    left:13px;
-    top:25px;
-
-    box-shadow:26px 0 #222;
-}
-
-.runner-head:after{
-    content:"";
-
-    position:absolute;
-
-    width:18px;
-    height:6px;
-
-    background:#333;
-
-    left:18px;
-    top:44px;
-
-    border-radius:0 0 15px 15px;
-}
-
-.runner-body{
-    position:absolute;
-
-    left:14px;
-    top:57px;
-
-    width:52px;
-    height:42px;
-
-    background:#3d8cff;
-
-    border:5px solid #333;
-
-    border-radius:10px;
-}
-
-.runner-leg{
-    position:absolute;
-
-    width:16px;
-    height:35px;
-
-    background:#333;
-
-    top:93px;
-
-    border-radius:8px;
-
-    animation:legs .25s infinite alternate;
-}
-
-.runner-leg.left{
-    left:17px;
-}
-
-.runner-leg.right{
-    right:17px;
-    animation-delay:.12s;
-}
-
-@keyframes legs{
-    from{
-        transform:rotate(28deg);
-    }
-
-    to{
-        transform:rotate(-28deg);
-    }
-}
-
-/* Adventure question */
-
-#adventureQuestionBox{
-    position:absolute;
-
-    z-index:30;
-
-    top:20%;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:min(92%,650px);
-
-    text-align:center;
-
-    background:white;
-
-    padding:25px;
-
-    border:6px solid #3d3d3d;
-
-    box-shadow:
-        10px 10px 0 #222,
-        0 20px 40px rgba(0,0,0,.3);
-}
-
-#adventureQuestionBox h2{
-    color:#ef8d24;
-    font-family:monospace;
-    font-size:28px;
-    margin-bottom:10px;
-}
-
-#adventureQuestionText{
-    font-size:42px;
-    font-weight:bold;
-    margin:15px;
-}
-
-#adventureHint{
-    font-size:17px;
-    margin-bottom:15px;
-}
-
-/* Doors */
-
-.doors{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
-
-    margin-top:20px;
-}
-
-.door{
-    position:relative;
-
-    min-height:190px;
-
-    padding:20px;
-
-    background:#a96b3c;
-
-    border:7px solid #663d24;
-
+.gameBtn{
+    border:0;
+    padding:13px 25px;
+    border-radius:15px;
+    background:#273c75;
     color:white;
-
-    font-size:38px;
+    font-size:16px;
     font-weight:bold;
-
-    box-shadow:
-        inset 0 0 0 5px #c78b52,
-        0 8px 0 #422716;
-
-    transition:.2s;
-}
-
-.door:hover{
-    transform:translateY(-8px);
-}
-
-.door:before{
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    bottom:18px;
-
-    transform:translateX(-50%);
-
-    width:105px;
-    height:135px;
-
-    background:#70472a;
-
-    border:5px solid #422716;
-
-    border-radius:55px 55px 0 0;
-}
-
-.door span{
-    position:relative;
-    z-index:2;
-
-    display:inline-block;
-
-    padding:10px 18px;
-
-    background:#4c2d1c;
-
-    border:4px solid #2e1c12;
-
-    border-radius:10px;
-}
-
-/* Adventure message */
-
-#adventureMessage{
-    position:absolute;
-
-    z-index:50;
-
-    left:50%;
-    top:82%;
-
-    transform:translateX(-50%);
-
-    padding:12px 25px;
-
-    background:#fff;
-
-    border:4px solid #444;
-
-    box-shadow:5px 5px 0 #222;
-
-    font-size:21px;
-
-    font-weight:bold;
-
-    display:none;
-}
-
-/* Adventure HUD */
-
-#adventureLives{
-    position:absolute;
-
-    z-index:50;
-
-    top:95px;
-    left:20px;
-
-    padding:10px 15px;
-
-    background:#fff;
-
-    border:4px solid #555;
-
-    font-weight:bold;
+    cursor:pointer;
 }
 
 /* =====================================================
-   POPUPS
+   SHOP
 ===================================================== */
 
-.overlay{
-    display:none;
-
-    position:fixed;
-    inset:0;
-
-    z-index:500;
-
-    background:rgba(20,30,40,.8);
-
-    align-items:center;
-    justify-content:center;
-
-    padding:20px;
-}
-
-.popup{
-    width:min(90%,600px);
-
-    background:#fff;
-
-    padding:35px;
-
+.shopCard{
+    width:min(650px,92vw);
+    max-height:85vh;
+    overflow:auto;
+    padding:25px;
+    border-radius:25px;
+    background:white;
     text-align:center;
-
-    border:5px solid #555;
-
-    box-shadow:10px 10px 0 #222;
 }
 
-.popup-icon{
-    font-size:70px;
+.shopCard h2{
+    color:#ff9f43;
+    margin-bottom:8px;
+}
+
+.shopBalance{
+    margin-bottom:18px;
+    font-weight:bold;
+    color:#273c75;
+}
+
+.shopItems{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.shopItem{
+    padding:18px;
+    border-radius:18px;
+    background:#f2f5ff;
+    border:3px solid #e0e5ff;
+}
+
+.shopIcon{
+    font-size:38px;
+}
+
+.shopItem h3{
+    margin:5px 0;
+    color:#273c75;
+}
+
+.shopItem p{
+    font-size:12px;
+    color:#666;
     margin-bottom:10px;
 }
 
-.popup h2{
-    font-family:monospace;
-    color:#45a83e;
-    font-size:34px;
-    margin-bottom:15px;
-}
-
-.popup p{
-    font-size:18px;
-    line-height:1.6;
-    margin-bottom:20px;
-}
-
-.popup button{
-    padding:13px 25px;
-    margin:5px;
-
-    font-size:17px;
+.buyBtn{
+    border:0;
+    padding:9px 15px;
+    border-radius:12px;
+    background:#20bf6b;
+    color:white;
     font-weight:bold;
+    cursor:pointer;
 }
 
-.continue{
-    background:#55bd45;
-    color:#fff;
-    border:4px solid #367b2c;
-    box-shadow:0 5px 0 #24521d;
+.closeBtn{
+    margin-top:18px;
+    border:0;
+    padding:11px 25px;
+    border-radius:12px;
+    background:#273c75;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.map-button{
-    background:#607d8b;
-    color:#fff;
-    border:4px solid #455a64;
-    box-shadow:0 5px 0 #263238;
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+    position:absolute;
+    z-index:1500;
+    left:50%;
+    top:17%;
+    transform:translateX(-50%);
+    padding:13px 22px;
+    border-radius:15px;
+    background:white;
+    color:#273c75;
+    font-weight:900;
+    box-shadow:0 8px 30px rgba(0,0,0,.3);
+    opacity:0;
+    pointer-events:none;
 }
 
-/* Confetti */
-
-.confetti{
-    position:fixed;
-    width:10px;
-    height:10px;
-    top:-20px;
-    z-index:1000;
-    animation:fall 3s linear forwards;
+.popup.show{
+    animation:popup 1.3s ease;
 }
 
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(720deg);
+@keyframes popup{
+    0%{
+        opacity:0;
+        transform:translate(-50%,20px) scale(.8);
+    }
+    20%,75%{
+        opacity:1;
+        transform:translate(-50%,0) scale(1);
+    }
+    100%{
+        opacity:0;
+        transform:translate(-50%,-20px);
     }
 }
 
-/* Mobile */
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
-@media(max-width:650px){
+@media(max-width:700px){
 
-    header{
-        flex-direction:column;
-        gap:8px;
+    .gameTitle{
+        display:none;
     }
 
-    .logo{
-        font-size:23px;
+    .topbar{
+        min-height:auto;
+        padding:6px;
     }
 
-    .hero h1{
-        font-size:32px;
+    .stat{
+        font-size:10px;
+        padding:6px;
     }
 
-    .loading-card h1{
-        font-size:40px;
+    .levelMap{
+        top:36%;
+        height:190px;
     }
 
-    .loading-card{
-        padding:30px 20px;
+    .level{
+        width:60px;
+        height:60px;
+        font-size:9px;
+        border-width:4px;
     }
 
-    .answers{
-        grid-template-columns:1fr;
-    }
-
-    .math-question{
-        font-size:40px;
-    }
-
-    .stats{
-        justify-content:center;
-    }
-
-    .doors{
-        gap:10px;
-    }
-
-    .door{
-        min-height:145px;
-        font-size:25px;
-    }
-
-    .door:before{
-        width:80px;
-        height:105px;
-    }
-
-    #adventureQuestionBox{
-        top:16%;
+    .question-panel{
+        width:92vw;
         padding:18px;
     }
 
-    #adventureQuestionText{
-        font-size:32px;
+    .question-text{
+        font-size:38px;
     }
 
-    .runner{
-        left:4%;
-        transform:scale(.8);
+    .answer{
+        font-size:19px;
+        padding:12px;
+    }
+
+    .shopItems{
+        grid-template-columns:1fr;
     }
 }
 </style>
@@ -1361,520 +1099,419 @@ header{
      LOADING SCREEN
 ===================================================== -->
 
-<section id="loadingScreen">
+<div id="loadingScreen">
 
     <div class="sun"></div>
 
     <div class="cloud cloud1"></div>
     <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
 
-    <div class="mountain mountain1"></div>
-    <div class="mountain mountain2"></div>
+    <div class="mountains">
+        <div class="mountain mountain1"></div>
+        <div class="mountain mountain2"></div>
+        <div class="mountain mountain3"></div>
+    </div>
 
-    <div class="tree tree1"></div>
-    <div class="tree tree2"></div>
-    <div class="tree tree3"></div>
-    <div class="tree tree4"></div>
+    <div class="loadingGround"></div>
+    <div class="loadingRoad"></div>
 
-    <div class="loading-card">
-
-        <div class="crystal">
-            <span>+</span>
+    <div
+        class="milo running"
+        style="
+            left:50%;
+            bottom:70px;
+            transform:translateX(-50%);
+        "
+    >
+        <div class="hair"></div>
+        <div class="head">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
         </div>
+        <div class="body"></div>
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+    </div>
 
-        <h1>Math Quest</h1>
+    <div class="loadingCard">
 
-        <h2>🌈 The Number Adventure</h2>
+        <h1>🌈 Math Quest 3D</h1>
 
         <p>
-            Milo needs your help! The magical Number Crystal
-            has lost its power. Solve math challenges,
-            explore the world, and collect magical items.
+            Milo's Math Adventure
         </p>
 
-        <div class="loading-bar">
-            <div class="loading-progress"
-                 id="loadingProgress">
+        <div class="loadingBar">
+            <div
+                class="loadingProgress"
+                id="loadingProgress">
             </div>
         </div>
 
-        <div id="loadingPercent">0%</div>
+        <div
+            class="loadingPercent"
+            id="loadingPercent">
+            Loading 0%
+        </div>
 
-        <button
-            id="pressPlay"
-            class="press-btn"
-            onclick="startAdventure()">
-
-            ▶ PRESS TO PLAY
-
+        <button id="pressPlay">
+            ▶️ PRESS TO PLAY
         </button>
 
     </div>
 
-</section>
+</div>
 
 
 <!-- =====================================================
-     MAIN GAME
+     GAME
 ===================================================== -->
 
-<section id="game">
+<div id="game">
 
-    <header>
+    <div class="topbar">
 
-        <div class="logo">
-            🌈 MATH QUEST
+        <div class="gameTitle">
+            🌈 Math Quest
         </div>
 
         <div class="stats">
 
             <div class="stat">
-                ⭐ Score:
-                <span id="score">0</span>
+                ⭐ <span id="score">0</span> XP
             </div>
 
             <div class="stat">
-                ❤️ Lives:
-                <span id="lives">3</span>
+                ❤️ <span id="lives">3</span>
             </div>
 
             <div class="stat">
-                🏆 Level:
-                <span id="levelNumber">1</span>/10
+                🗺️ <span id="level">1</span>/10
             </div>
 
             <div class="stat">
-                🎁 Items:
-                <span id="items">0</span>
+                ⚡ <span id="energy">0</span>
+            </div>
+
+            <div class="stat">
+                💎 <span id="crystals">0</span>
             </div>
 
         </div>
 
-    </header>
+        <button
+            class="shopBtn"
+            id="shopBtn">
+            🛒
+        </button>
 
-    <div class="game-cloud gc1"></div>
-    <div class="game-cloud gc2"></div>
+        <button
+            class="musicBtn"
+            id="musicBtn">
+            🔊
+        </button>
+
+    </div>
 
 
     <!-- WORLD -->
 
-    <main id="world">
+    <div class="map">
 
-        <div class="hero">
+        <div class="mapSun"></div>
 
-            <h1>🌎 Welcome to Math World!</h1>
+        <div class="mapCloud a"></div>
+        <div class="mapCloud b"></div>
 
-            <p>
-                Help Milo restore the Number Crystal!
-            </p>
+        <div class="worldMountains">
 
-            <div class="milo">
-                <div class="milo-head"></div>
-                <div class="milo-body"></div>
+            <div class="worldMountain one"></div>
+            <div class="worldMountain two"></div>
+            <div class="worldMountain three"></div>
+
+        </div>
+
+        <div class="building building1"></div>
+        <div class="building building2"></div>
+
+        <div class="tree tree1"></div>
+        <div class="tree tree2"></div>
+        <div class="tree tree3"></div>
+        <div class="tree tree4"></div>
+        <div class="tree tree5"></div>
+
+        <div class="road"></div>
+
+        <div class="collectible item1">⭐</div>
+        <div class="collectible item2">🍎</div>
+        <div class="collectible item3">💎</div>
+        <div class="collectible item4">🌈</div>
+
+
+        <!-- LEVELS -->
+
+        <div
+            class="levelMap"
+            id="levelMap">
+        </div>
+
+
+        <!-- MILO -->
+
+        <div id="player">
+
+            <div class="milo running">
+
+                <div class="hair"></div>
+
+                <div class="head">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                </div>
+
+                <div class="body"></div>
+
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+
             </div>
 
         </div>
 
+    </div>
 
-        <div class="story-box">
 
-            <strong>📖 Milo's Story</strong>
+    <!-- QUESTION -->
 
-            <p>
-                One sunny morning, Milo discovered that the
-                magical Number Crystal had become weak.
-                To restore its power, he must travel across
-                Math World and solve addition challenges.
-            </p>
+    <div
+        class="question-panel hidden"
+        id="questionPanel">
 
-            <br>
+        <div
+            class="question-title"
+            id="questionTitle">
+            Choose your adventure
+        </div>
 
-            <p>
-                Every correct answer gives Milo stars.
-                But be careful! If you make two mistakes
-                in one level, Milo must enter
-                <strong>🏃 ADVENTURE MODE!</strong>
-            </p>
+        <div
+            class="question-level"
+            id="questionLevel">
+            Level 1
+        </div>
+
+        <div
+            class="question-text"
+            id="questionText">
+            Click Level 1 to Start!
+        </div>
+
+        <div
+            class="question-timer"
+            id="questionTimer">
+            🗺️ Select a level
+        </div>
+
+        <div
+            class="answers"
+            id="answers">
+        </div>
+
+    </div>
+
+
+    <!-- POPUP -->
+
+    <div
+        class="popup"
+        id="popup">
+    </div>
+
+
+    <!-- COMPLETE -->
+
+    <div
+        class="overlay"
+        id="completeOverlay">
+
+        <div class="card">
+
+            <h2>🎉 Level Complete!</h2>
+
+            <p id="completeMessage"></p>
+
+            <button
+                class="gameBtn"
+                id="nextLevelBtn">
+                🔓 Continue
+            </button>
 
         </div>
 
+    </div>
 
-        <div class="levels">
 
-            <div class="level">
-                <div class="level-icon">🌱</div>
-                <h3>Level 1</h3>
-                <p>Learn simple addition.</p>
-                <button class="level-btn"
-                        onclick="startLevel(1)">
-                    PLAY
-                </button>
-            </div>
+    <!-- GAME OVER -->
 
-            <div class="level">
-                <div class="level-icon">🍎</div>
-                <h3>Level 2</h3>
-                <p>Count the apples.</p>
-                <button class="level-btn"
-                        onclick="startLevel(2)">
-                    PLAY
-                </button>
-            </div>
+    <div
+        class="overlay"
+        id="gameOverOverlay">
 
-            <div class="level">
-                <div class="level-icon">🌳</div>
-                <h3>Level 3</h3>
-                <p>Explore the forest.</p>
-                <button class="level-btn"
-                        onclick="startLevel(3)">
-                    PLAY
-                </button>
-            </div>
+        <div class="card">
 
-            <div class="level">
-                <div class="level-icon">🌸</div>
-                <h3>Level 4</h3>
-                <p>Help the flowers bloom.</p>
-                <button class="level-btn"
-                        onclick="startLevel(4)">
-                    PLAY
-                </button>
-            </div>
+            <h2>😢 Game Over</h2>
 
-            <div class="level">
-                <div class="level-icon">🪵</div>
-                <h3>Level 5</h3>
-                <p>Cross the counting bridge.</p>
-                <button class="level-btn"
-                        onclick="startLevel(5)">
-                    PLAY
-                </button>
-            </div>
+            <p>
+                Don't worry! Every mistake helps
+                you learn.
+            </p>
 
-            <div class="level">
-                <div class="level-icon">💎</div>
-                <h3>Level 6</h3>
-                <p>Find the crystal gems.</p>
-                <button class="level-btn"
-                        onclick="startLevel(6)">
-                    PLAY
-                </button>
-            </div>
-
-            <div class="level">
-                <div class="level-icon">🏰</div>
-                <h3>Level 7</h3>
-                <p>Reach the number castle.</p>
-                <button class="level-btn"
-                        onclick="startLevel(7)">
-                    PLAY
-                </button>
-            </div>
-
-            <div class="level">
-                <div class="level-icon">☁️</div>
-                <h3>Level 8</h3>
-                <p>Explore the sky world.</p>
-                <button class="level-btn"
-                        onclick="startLevel(8)">
-                    PLAY
-                </button>
-            </div>
-
-            <div class="level">
-                <div class="level-icon">⭐</div>
-                <h3>Level 9</h3>
-                <p>Collect the star power.</p>
-                <button class="level-btn"
-                        onclick="startLevel(9)">
-                    PLAY
-                </button>
-            </div>
-
-            <div class="level">
-                <div class="level-icon">🔮</div>
-                <h3>Level 10</h3>
-                <p>Restore the Number Crystal!</p>
-                <button class="level-btn"
-                        onclick="startLevel(10)">
-                    FINAL LEVEL
-                </button>
-            </div>
+            <button
+                class="gameBtn"
+                id="restartBtn">
+                🔄 Try Again
+            </button>
 
         </div>
 
-    </main>
+    </div>
 
 
-    <!-- =================================================
-         NORMAL GAME PANEL
-    ================================================= -->
+    <!-- VICTORY -->
 
-    <section id="gamePanel">
+    <div
+        class="overlay"
+        id="victoryOverlay">
 
-        <button class="back-btn"
-                onclick="backToWorld()">
+        <div class="card">
 
-            ← Back to World
+            <h2>🏆 Math Quest Champion!</h2>
 
-        </button>
+            <p>
+                You completed all 10 worlds!
+                Milo is proud of you!
+            </p>
 
-        <div class="question-card">
+            <button
+                class="gameBtn"
+                id="victoryRestartBtn">
+                🔄 Play Again
+            </button>
 
-            <h2 id="levelTitle">
-                Level 1
-            </h2>
+        </div>
 
-            <div class="question-story"
-                 id="questionStory">
+    </div>
+
+
+    <!-- SHOP -->
+
+    <div
+        class="shopOverlay"
+        id="shopOverlay">
+
+        <div class="shopCard">
+
+            <h2>🛒 Milo's Math Shop</h2>
+
+            <div
+                class="shopBalance"
+                id="shopBalance">
+                ⚡ 0 Energy | 💎 0 Crystals
             </div>
 
-            <div class="progress">
+            <div class="shopItems">
 
-                <div class="progress-fill"
-                     id="progressFill">
+                <div class="shopItem">
+
+                    <div class="shopIcon">❤️</div>
+
+                    <h3>Extra Life</h3>
+
+                    <p>
+                        Restore one life.
+                    </p>
+
+                    <button
+                        class="buyBtn"
+                        onclick="buyItem('life')">
+                        10 ⚡
+                    </button>
+
+                </div>
+
+
+                <div class="shopItem">
+
+                    <div class="shopIcon">⏱️</div>
+
+                    <h3>Time Boost</h3>
+
+                    <p>
+                        Gives a bonus on your next
+                        question.
+                    </p>
+
+                    <button
+                        class="buyBtn"
+                        onclick="buyItem('time')">
+                        15 ⚡
+                    </button>
+
+                </div>
+
+
+                <div class="shopItem">
+
+                    <div class="shopIcon">⭐</div>
+
+                    <h3>XP Boost</h3>
+
+                    <p>
+                        Adds bonus XP.
+                    </p>
+
+                    <button
+                        class="buyBtn"
+                        onclick="buyItem('xp')">
+                        20 💎
+                    </button>
+
+                </div>
+
+
+                <div class="shopItem">
+
+                    <div class="shopIcon">🎒</div>
+
+                    <h3>Adventure Backpack</h3>
+
+                    <p>
+                        Unlock Milo's special
+                        adventure item.
+                    </p>
+
+                    <button
+                        class="buyBtn"
+                        onclick="buyItem('bag')">
+                        30 💎
+                    </button>
+
                 </div>
 
             </div>
 
-            <div id="questionCount">
-                Question 1/5
-            </div>
-
-            <div class="math-question"
-                 id="mathQuestion">
-            </div>
-
-            <div class="answers"
-                 id="answers">
-            </div>
-
-            <div class="feedback"
-                 id="feedback">
-            </div>
-
-        </div>
-
-    </section>
-
-</section>
-
-
-<!-- =====================================================
-     ADVENTURE MODE
-===================================================== -->
-
-<section id="adventureMode">
-
-    <div class="adventure-sun"></div>
-
-    <div class="adventure-cloud ac1"></div>
-    <div class="adventure-cloud ac2"></div>
-
-    <div class="adventure-mountain am1"></div>
-    <div class="adventure-mountain am2"></div>
-
-    <div class="adventure-ground"></div>
-
-    <div class="adventure-road"></div>
-
-    <div class="adventure-tree at1"></div>
-    <div class="adventure-tree at2"></div>
-    <div class="adventure-tree at3"></div>
-    <div class="adventure-tree at4"></div>
-
-
-    <div class="adventure-header">
-
-        <h1>🏃 ADVENTURE MODE!</h1>
-
-        <p>
-            Milo is running! Choose the correct door!
-        </p>
-
-    </div>
-
-
-    <div id="adventureLives">
-        ❤️ Lives:
-        <span id="adventureLifeNumber">3</span>
-    </div>
-
-
-    <!-- Running Milo -->
-
-    <div class="runner">
-
-        <div class="runner-head"></div>
-
-        <div class="runner-body"></div>
-
-        <div class="runner-leg left"></div>
-        <div class="runner-leg right"></div>
-
-    </div>
-
-
-    <!-- Question -->
-
-    <div id="adventureQuestionBox">
-
-        <h2>
-            🚪 Choose the Correct Door!
-        </h2>
-
-        <div id="adventureHint">
-            Solve the math problem and enter
-            the door with the correct answer.
-        </div>
-
-        <div id="adventureQuestionText">
-            5 + 3 = ?
-        </div>
-
-        <div class="doors">
-
-            <button class="door"
-                    id="door1"
-                    onclick="chooseAdventureDoor(0)">
-
-                <span id="doorAnswer1">
-                    8
-                </span>
-
-            </button>
-
-            <button class="door"
-                    id="door2"
-                    onclick="chooseAdventureDoor(1)">
-
-                <span id="doorAnswer2">
-                    10
-                </span>
-
+            <button
+                class="closeBtn"
+                id="closeShop">
+                Close
             </button>
 
         </div>
-
-    </div>
-
-
-    <div id="adventureMessage"></div>
-
-</section>
-
-
-<!-- =====================================================
-     COMPLETE POPUP
-===================================================== -->
-
-<div class="overlay" id="completePopup">
-
-    <div class="popup">
-
-        <div class="popup-icon"
-             id="rewardIcon">
-            🎁
-        </div>
-
-        <h2 id="completeTitle">
-            Level Complete!
-        </h2>
-
-        <p id="completeText">
-            Great job!
-        </p>
-
-        <button class="continue"
-                onclick="nextLevel()">
-
-            ▶ NEXT LEVEL
-
-        </button>
-
-        <button class="map-button"
-                onclick="backToWorld()">
-
-            🌎 WORLD MAP
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     GAME OVER
-===================================================== -->
-
-<div class="overlay" id="gameOverPopup">
-
-    <div class="popup">
-
-        <div class="popup-icon">
-            💪
-        </div>
-
-        <h2>
-            Try Again!
-        </h2>
-
-        <p id="gameOverText">
-            Don't worry! Every mistake helps you learn.
-        </p>
-
-        <button class="continue"
-                onclick="restartGame()">
-
-            🔄 TRY AGAIN
-
-        </button>
-
-        <button class="map-button"
-                onclick="backToWorld()">
-
-            🌎 WORLD MAP
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     VICTORY
-===================================================== -->
-
-<div class="overlay" id="victoryPopup">
-
-    <div class="popup">
-
-        <div class="popup-icon">
-            🏆
-        </div>
-
-        <h2>
-            MATH HERO!
-        </h2>
-
-        <p>
-            🎉 Amazing! You completed all 10 levels
-            and restored the magical Number Crystal!
-        </p>
-
-        <p>
-            ⭐ Final Score:
-            <strong id="finalScore">0</strong>
-        </p>
-
-        <button class="continue"
-                onclick="restartGame()">
-
-            🔄 PLAY AGAIN
-
-        </button>
 
     </div>
 
@@ -1884,50 +1521,100 @@ header{
 <script>
 
 /* =====================================================
-   GAME VARIABLES
+   LEVEL DATA
 ===================================================== */
 
-let score = 0;
-let lives = 3;
+const levels = [
 
-let currentLevel = 1;
-let questionNumber = 1;
+    {
+        name:"Sunny Meadow 🌼",
+        type:"addition",
+        symbol:"➕",
+        max:10,
+        reward:"⚡"
+    },
 
-let questionsPerLevel = 5;
+    {
+        name:"Apple Valley 🍎",
+        type:"addition",
+        symbol:"➕",
+        max:20,
+        reward:"🍎"
+    },
 
-let correctAnswer = 0;
+    {
+        name:"Magic Forest 🌳",
+        type:"addition",
+        symbol:"➕",
+        max:30,
+        reward:"🌿"
+    },
 
-let totalItems = 0;
+    {
+        name:"Rainbow Garden 🌈",
+        type:"subtraction",
+        symbol:"➖",
+        max:40,
+        reward:"🌈"
+    },
 
-let currentA = 0;
-let currentB = 0;
+    {
+        name:"Counting Bridge 🌉",
+        type:"subtraction",
+        symbol:"➖",
+        max:50,
+        reward:"🔑"
+    },
+
+    {
+        name:"Crystal Cave 💎",
+        type:"multiplication",
+        symbol:"✖️",
+        max:10,
+        reward:"💎"
+    },
+
+    {
+        name:"Number Castle 🏰",
+        type:"multiplication",
+        symbol:"✖️",
+        max:12,
+        reward:"🗝️"
+    },
+
+    {
+        name:"Sky World ☁️",
+        type:"division",
+        symbol:"➗",
+        max:12,
+        reward:"⭐"
+    },
+
+    {
+        name:"Star Valley 🌟",
+        type:"division",
+        symbol:"➗",
+        max:15,
+        reward:"🌟"
+    },
+
+    {
+        name:"Number Crystal 🔮",
+        type:"mixed",
+        symbol:"🧠",
+        max:20,
+        reward:"🔮"
+    }
+
+];
 
 
 /* =====================================================
-   NEW ADVENTURE VARIABLES
+   DOM
 ===================================================== */
 
-let mistakesThisLevel = 0;
-
-let adventureActive = false;
-
-let adventureQuestionNumber = 0;
-
-let adventureCorrectAnswer = 0;
-
-let adventureA = 0;
-let adventureB = 0;
-
-let adventureDoors = [];
-
-let adventureQuestionsNeeded = 2;
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-let loading = 0;
+const loadingScreen =
+    document.getElementById("loadingScreen");
 
 const loadingProgress =
     document.getElementById("loadingProgress");
@@ -1938,81 +1625,347 @@ const loadingPercent =
 const pressPlay =
     document.getElementById("pressPlay");
 
-const loadingTimer =
-    setInterval(() => {
+const game =
+    document.getElementById("game");
 
-        loading += Math.floor(Math.random() * 7) + 2;
+const scoreEl =
+    document.getElementById("score");
+
+const livesEl =
+    document.getElementById("lives");
+
+const levelEl =
+    document.getElementById("level");
+
+const energyEl =
+    document.getElementById("energy");
+
+const crystalsEl =
+    document.getElementById("crystals");
+
+const levelMap =
+    document.getElementById("levelMap");
+
+const player =
+    document.getElementById("player");
+
+const questionPanel =
+    document.getElementById("questionPanel");
+
+const questionTitle =
+    document.getElementById("questionTitle");
+
+const questionLevel =
+    document.getElementById("questionLevel");
+
+const questionText =
+    document.getElementById("questionText");
+
+const questionTimer =
+    document.getElementById("questionTimer");
+
+const answers =
+    document.getElementById("answers");
+
+const popup =
+    document.getElementById("popup");
+
+const completeOverlay =
+    document.getElementById("completeOverlay");
+
+const completeMessage =
+    document.getElementById("completeMessage");
+
+const nextLevelBtn =
+    document.getElementById("nextLevelBtn");
+
+const gameOverOverlay =
+    document.getElementById("gameOverOverlay");
+
+const restartBtn =
+    document.getElementById("restartBtn");
+
+const victoryOverlay =
+    document.getElementById("victoryOverlay");
+
+const victoryRestartBtn =
+    document.getElementById("victoryRestartBtn");
+
+const shopBtn =
+    document.getElementById("shopBtn");
+
+const shopOverlay =
+    document.getElementById("shopOverlay");
+
+const closeShop =
+    document.getElementById("closeShop");
+
+const shopBalance =
+    document.getElementById("shopBalance");
+
+const musicBtn =
+    document.getElementById("musicBtn");
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let score = 0;
+let lives = 3;
+let currentLevel = 1;
+let questionNumber = 1;
+
+let currentAnswer = 0;
+
+let mistakesThisLevel = 0;
+let correctStreak = 0;
+
+let energy = 0;
+let crystals = 0;
+
+let questionTime = 15;
+
+let timer = null;
+
+let questionAnswered = false;
+
+let gameStarted = false;
+
+let timeBoost = false;
+let xpBoost = false;
+let backpack = false;
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+let loading = 0;
+
+const loadingInterval =
+    setInterval(()=>{
+
+        loading +=
+            Math.floor(Math.random()*6)+2;
 
         if(loading >= 100){
 
             loading = 100;
 
-            clearInterval(loadingTimer);
+            clearInterval(
+                loadingInterval
+            );
 
-            loadingProgress.style.width =
-                "100%";
+            loadingPercent.textContent =
+                "Loading Complete!";
 
-            loadingPercent.innerText =
-                "100% - Math World Ready!";
+            setTimeout(()=>{
 
-            pressPlay.style.display =
-                "inline-block";
+                pressPlay.style.display =
+                    "block";
 
-            return;
+            },500);
+
         }
 
         loadingProgress.style.width =
-            loading + "%";
+            loading+"%";
 
-        loadingPercent.innerText =
-            loading + "%";
+        loadingPercent.textContent =
+            "Loading "+loading+"%";
 
-    },150);
+    },100);
 
 
 /* =====================================================
-   START ADVENTURE
+   MUSIC
 ===================================================== */
 
-function startAdventure(){
+let audioContext = null;
+let musicOn = true;
+let musicTimer = null;
 
-    document.getElementById("loadingScreen").style.display =
-        "none";
+function startMusic(){
 
-    document.getElementById("game").style.display =
-        "block";
+    if(!musicOn)
+        return;
 
-    resetGame();
+    if(audioContext){
+
+        if(audioContext.state === "suspended")
+            audioContext.resume();
+
+        return;
+    }
+
+    audioContext =
+        new(
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+    const notes = [
+        261.63,
+        329.63,
+        392,
+        523.25
+    ];
+
+    let i = 0;
+
+    function playNote(){
+
+        if(!musicOn)
+            return;
+
+        const osc =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        osc.type = "sine";
+
+        osc.frequency.value =
+            notes[i % notes.length];
+
+        gain.gain.setValueAtTime(
+            .025,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audioContext.currentTime+.35
+        );
+
+        osc.connect(gain);
+        gain.connect(
+            audioContext.destination
+        );
+
+        osc.start();
+
+        osc.stop(
+            audioContext.currentTime+.35
+        );
+
+        i++;
+
+    }
+
+    playNote();
+
+    musicTimer =
+        setInterval(
+            playNote,
+            600
+        );
 }
 
 
+musicBtn.addEventListener(
+    "click",
+    ()=>{
+        musicOn = !musicOn;
+
+        musicBtn.textContent =
+            musicOn ? "🔊" : "🔇";
+
+        if(musicOn){
+
+            startMusic();
+
+        }else{
+
+            clearInterval(
+                musicTimer
+            );
+
+            if(audioContext)
+                audioContext.suspend();
+
+        }
+    }
+);
+
+
 /* =====================================================
-   RESET GAME
+   PRESS PLAY
+===================================================== */
+
+pressPlay.addEventListener(
+    "click",
+    ()=>{
+
+        loadingScreen.style.display =
+            "none";
+
+        game.style.display =
+            "block";
+
+        gameStarted = true;
+
+        startMusic();
+
+        resetGame();
+
+    }
+);
+
+
+/* =====================================================
+   RESET
 ===================================================== */
 
 function resetGame(){
 
+    clearTimer();
+
     score = 0;
-
     lives = 3;
-
     currentLevel = 1;
-
     questionNumber = 1;
-
-    totalItems = 0;
+    currentAnswer = 0;
 
     mistakesThisLevel = 0;
+    correctStreak = 0;
 
-    adventureActive = false;
+    energy = 0;
+    crystals = 0;
+
+    questionAnswered = false;
+
+    timeBoost = false;
+    xpBoost = false;
+    backpack = false;
+
+    completeOverlay.classList.remove("show");
+    gameOverOverlay.classList.remove("show");
+    victoryOverlay.classList.remove("show");
+    shopOverlay.classList.remove("show");
+
+    questionPanel.classList.add("hidden");
+
+    createLevelMap();
 
     updateStats();
 
-    closePopups();
+    questionTitle.textContent =
+        "Choose your first adventure";
 
-    closeAdventure();
+    questionLevel.textContent =
+        "Level 1";
 
-    backToWorld();
+    questionText.textContent =
+        "Click Level 1 to Start!";
+
+    questionTimer.textContent =
+        "🗺️ Select a level";
+
+    answers.innerHTML = "";
+
 }
 
 
@@ -2022,894 +1975,745 @@ function resetGame(){
 
 function updateStats(){
 
-    document.getElementById("score").innerText =
-        score;
+    scoreEl.textContent = score;
+    livesEl.textContent = lives;
+    levelEl.textContent = currentLevel;
+    energyEl.textContent = energy;
+    crystalsEl.textContent = crystals;
 
-    document.getElementById("lives").innerText =
-        lives;
+    shopBalance.textContent =
+        `⚡ ${energy} Energy | 💎 ${crystals} Crystals`;
 
-    document.getElementById("levelNumber").innerText =
-        currentLevel;
-
-    document.getElementById("items").innerText =
-        totalItems;
 }
 
 
 /* =====================================================
-   LEVEL STORIES
+   LEVEL MAP
 ===================================================== */
 
-const stories = {
+function createLevelMap(){
 
-    1:
-    "🌱 Milo enters the peaceful meadow. Help him add the numbers growing beside the flowers.",
+    levelMap.innerHTML = "";
 
-    2:
-    "🍎 Milo reaches Apple Valley. Count the apples and solve each addition problem.",
+    levels.forEach(
+        (level,index)=>{
 
-    3:
-    "🌳 The forest is full of friendly animals. Solve the math problems to find the secret path.",
+            const n = index+1;
 
-    4:
-    "🌸 The magical garden needs your help. Correct answers will make the flowers bloom.",
+            const button =
+                document.createElement("div");
 
-    5:
-    "🪵 A wooden bridge is blocking Milo's path. Solve the addition challenges to cross it.",
+            button.className = "level";
 
-    6:
-    "💎 Shiny gems are hidden inside the Crystal Cave. Use your math skills to find them.",
+            if(n > currentLevel)
+                button.classList.add("locked");
 
-    7:
-    "🏰 Milo arrives at the Number Castle. The castle gate opens only when the answers are correct.",
+            if(n < currentLevel)
+                button.classList.add("completed");
 
-    8:
-    "☁️ Milo travels into the Sky World. Clouds are carrying mysterious number puzzles.",
+            if(n === currentLevel)
+                button.classList.add("current");
 
-    9:
-    "⭐ The Star Valley is losing its light. Solve the challenges and collect the star power.",
+            button.textContent =
+                `LEVEL ${n}`;
 
-    10:
-    "🔮 The final Number Crystal is waiting! Complete the last challenges and restore Math World."
+            button.title =
+                `${level.name} — ${level.type}`;
 
-};
+            button.addEventListener(
+                "click",
+                ()=>{
+
+                    if(n <= currentLevel){
+
+                        startLevel(n);
+
+                    }else{
+
+                        showPopup(
+                            "🔒 Complete the current level first!"
+                        );
+
+                    }
+
+                }
+            );
+
+            levelMap.appendChild(button);
+
+        }
+    );
+
+}
 
 
 /* =====================================================
    START LEVEL
 ===================================================== */
 
-function startLevel(level){
+function startLevel(n){
 
-    closeAdventure();
+    clearTimer();
 
-    currentLevel = level;
+    currentLevel = n;
 
     questionNumber = 1;
 
     mistakesThisLevel = 0;
 
-    adventureActive = false;
+    correctStreak = 0;
 
-    document.getElementById("world").style.display =
-        "none";
+    questionAnswered = false;
 
-    document.getElementById("gamePanel").style.display =
-        "block";
-
-    document.getElementById("levelTitle").innerText =
-        "Level " + level;
-
-    document.getElementById("questionStory").innerText =
-        stories[level];
-
-    document.getElementById("feedback").innerText =
-        "";
+    createLevelMap();
 
     updateStats();
 
+    moveCharacterToLevel(n);
+
+    questionPanel.classList.remove(
+        "hidden"
+    );
+
+    questionTitle.textContent =
+        levels[n-1].name;
+
     generateQuestion();
+
 }
 
 
 /* =====================================================
-   QUESTION GENERATOR
+   GENERATE QUESTION
 ===================================================== */
 
 function generateQuestion(){
 
-    let max;
+    clearTimer();
 
-    if(currentLevel <= 2){
+    questionAnswered = false;
 
-        max = 10;
+    const level =
+        levels[currentLevel-1];
 
-    }else if(currentLevel <= 4){
+    let type = level.type;
 
-        max = 20;
+    if(type === "mixed"){
 
-    }else if(currentLevel <= 6){
+        const types = [
+            "addition",
+            "subtraction",
+            "multiplication",
+            "division"
+        ];
 
-        max = 30;
-
-    }else if(currentLevel <= 8){
-
-        max = 50;
-
-    }else{
-
-        max = 100;
+        type =
+            types[
+                Math.floor(
+                    Math.random()*types.length
+                )
+            ];
 
     }
 
-    currentA =
-        Math.floor(Math.random() * (max + 1));
+    let a,b;
 
-    currentB =
-        Math.floor(Math.random() * (max + 1));
+    if(type === "addition"){
 
-    correctAnswer =
-        currentA + currentB;
+        a = random(0,level.max);
+        b = random(0,level.max);
 
-    document.getElementById("mathQuestion").innerText =
-        currentA + " + " + currentB + " = ?";
+        currentAnswer = a+b;
 
-    document.getElementById("questionCount").innerText =
-        "Question " +
-        questionNumber +
-        "/" +
-        questionsPerLevel;
+        questionText.textContent =
+            `${a} + ${b} = ?`;
 
-    let progress =
-        ((questionNumber - 1) /
-        questionsPerLevel) * 100;
+    }
 
-    document.getElementById("progressFill").style.width =
-        progress + "%";
+    else if(type === "subtraction"){
+
+        a = random(
+            Math.floor(level.max/2),
+            level.max
+        );
+
+        b = random(0,a);
+
+        currentAnswer = a-b;
+
+        questionText.textContent =
+            `${a} − ${b} = ?`;
+
+    }
+
+    else if(type === "multiplication"){
+
+        a = random(
+            1,
+            Math.min(12,level.max)
+        );
+
+        b = random(
+            1,
+            Math.min(12,level.max)
+        );
+
+        currentAnswer = a*b;
+
+        questionText.textContent =
+            `${a} × ${b} = ?`;
+
+    }
+
+    else if(type === "division"){
+
+        b = random(
+            1,
+            Math.min(12,level.max)
+        );
+
+        currentAnswer =
+            random(
+                1,
+                Math.min(12,level.max)
+            );
+
+        a = b*currentAnswer;
+
+        questionText.textContent =
+            `${a} ÷ ${b} = ?`;
+
+    }
+
+    questionLevel.textContent =
+        `${level.symbol} Level ${currentLevel} • Question ${questionNumber}/5`;
 
     createAnswers();
+
+    startTimer();
+
 }
 
 
 /* =====================================================
-   NORMAL ANSWERS
+   ANSWERS
 ===================================================== */
 
 function createAnswers(){
 
-    const answers =
-        document.getElementById("answers");
-
     answers.innerHTML = "";
 
-    let values = [
-        correctAnswer,
-        correctAnswer + randomOffset(),
-        Math.max(
-            0,
-            correctAnswer - randomOffset()
-        ),
-        correctAnswer + randomOffset()
+    const list = [
+        currentAnswer
     ];
 
-    values = [...new Set(values)];
+    while(list.length < 4){
 
-    while(values.length < 4){
+        let wrong;
 
-        let extra =
-            correctAnswer +
-            Math.floor(Math.random() * 15) -
-            7;
+        const difference =
+            random(1,10);
 
-        if(
-            extra >= 0 &&
-            !values.includes(extra)
-        ){
+        wrong =
+            Math.random() > .5
+            ? currentAnswer+difference
+            : currentAnswer-difference;
 
-            values.push(extra);
-        }
+        if(wrong < 0)
+            wrong =
+                currentAnswer+difference;
+
+        if(!list.includes(wrong))
+            list.push(wrong);
+
     }
 
-    values.sort(
-        () => Math.random() - .5
-    );
+    for(let i=list.length-1;i>0;i--){
 
-    values.forEach(value => {
-
-        const button =
-            document.createElement("button");
-
-        button.className =
-            "answer";
-
-        button.innerText =
-            value;
-
-        button.onclick =
-            () => checkAnswer(
-                value,
-                button
+        const j =
+            Math.floor(
+                Math.random()*(i+1)
             );
 
-        answers.appendChild(button);
+        [list[i],list[j]] =
+        [list[j],list[i]];
 
-    });
-}
+    }
 
+    list.forEach(
+        value=>{
 
-function randomOffset(){
+            const button =
+                document.createElement("button");
 
-    return Math.floor(
-        Math.random() * 10
-    ) + 1;
+            button.className = "answer";
+
+            button.textContent = value;
+
+            button.addEventListener(
+                "click",
+                ()=>{
+                    checkAnswer(
+                        value,
+                        button
+                    );
+                }
+            );
+
+            answers.appendChild(button);
+
+        }
+    );
+
 }
 
 
 /* =====================================================
-   CHECK NORMAL ANSWER
+   TIMER
 ===================================================== */
 
-function checkAnswer(value,button){
+function startTimer(){
 
-    if(adventureActive){
-        return;
+    questionTime =
+        Math.max(
+            7,
+            16-currentLevel
+        );
+
+    if(timeBoost){
+
+        questionTime += 5;
+
+        timeBoost = false;
+
+        showPopup(
+            "⏱️ Time Boost activated!"
+        );
+
     }
 
-    const allButtons =
-        document.querySelectorAll(".answer");
+    updateTimer();
 
-    allButtons.forEach(btn => {
+    timer =
+        setInterval(
+            ()=>{
 
-        btn.disabled = true;
+                questionTime--;
 
-    });
+                updateTimer();
+
+                if(questionTime <= 0){
+
+                    clearTimer();
+
+                    timeUp();
+
+                }
+
+            },
+            1000
+        );
+
+}
 
 
-    /* CORRECT */
+function updateTimer(){
 
-    if(value === correctAnswer){
+    questionTimer.textContent =
+        `⏱️ Time: ${questionTime}s`;
 
-        button.classList.add("correct");
+}
 
-        score +=
-            10 + currentLevel;
 
-        document.getElementById("feedback").innerText =
-            "🎉 Correct! Great job! +" +
-            (10 + currentLevel) +
-            " points!";
+function clearTimer(){
+
+    if(timer){
+
+        clearInterval(timer);
+
+        timer = null;
+
+    }
+
+}
+
+
+/* =====================================================
+   TIME UP
+===================================================== */
+
+function timeUp(){
+
+    if(questionAnswered)
+        return;
+
+    questionAnswered = true;
+
+    disableAnswers();
+
+    mistakesThisLevel++;
+
+    lives--;
+
+    correctStreak = 0;
+
+    updateStats();
+
+    showPopup(
+        "⏰ Time's up!"
+    );
+
+    nextQuestionOrAdventure();
+
+}
+
+
+/* =====================================================
+   CHECK
+===================================================== */
+
+function checkAnswer(
+    value,
+    button
+){
+
+    if(questionAnswered)
+        return;
+
+    questionAnswered = true;
+
+    clearTimer();
+
+    disableAnswers();
+
+    if(value === currentAnswer){
+
+        button.classList.add(
+            "correct"
+        );
+
+        correctStreak++;
+
+        let points =
+            10 +
+            correctStreak*5 +
+            currentLevel;
+
+        if(xpBoost){
+
+            points += 20;
+
+            xpBoost = false;
+
+            showPopup(
+                "⭐ XP Boost! +20 bonus"
+            );
+
+        }
+
+        score += points;
+
+        energy++;
+
+        if(correctStreak >= 3){
+
+            energy++;
+
+            showPopup(
+                `🔥 Combo! +${points} XP + Bonus Energy`
+            );
+
+        }else{
+
+            showPopup(
+                `🎉 Correct! +${points} XP`
+            );
+
+        }
 
         updateStats();
 
+    }else{
 
-        setTimeout(() => {
-
-            questionNumber++;
-
-            if(
-                questionNumber >
-                questionsPerLevel
-            ){
-
-                completeLevel();
-
-            }else{
-
-                generateQuestion();
-
-            }
-
-        },800);
-
-
-    }
-
-    /* WRONG */
-
-    else{
-
-        button.classList.add("wrong");
+        button.classList.add(
+            "wrong"
+        );
 
         mistakesThisLevel++;
 
         lives--;
 
+        correctStreak = 0;
+
         updateStats();
 
-        document.getElementById("feedback").innerText =
-            "💡 Not quite! The correct answer was " +
-            correctAnswer +
-            ".";
-
-
-        /*
-         * TWO MISTAKES =
-         * ADVENTURE MODE
-         */
-
-        if(mistakesThisLevel >= 2){
-
-            setTimeout(() => {
-
-                startAdventureMode();
-
-            },900);
-
-            return;
-        }
-
-
-        if(lives <= 0){
-
-            setTimeout(
-                gameOver,
-                900
-            );
-
-        }else{
-
-            setTimeout(() => {
-
-                questionNumber++;
-
-                if(
-                    questionNumber >
-                    questionsPerLevel
-                ){
-
-                    completeLevel();
-
-                }else{
-
-                    generateQuestion();
-
-                }
-
-            },1100);
-
-        }
+        showPopup(
+            "❌ Not quite!"
+        );
 
     }
 
-}
-
-
-/* =====================================================
-   ADVENTURE MODE START
-===================================================== */
-
-function startAdventureMode(){
-
-    adventureActive = true;
-
-    adventureQuestionNumber = 0;
-
-    document.getElementById("gamePanel").style.display =
-        "none";
-
-    document.getElementById("adventureMode").style.display =
-        "block";
-
-    document.getElementById("adventureMessage").style.display =
-        "none";
-
-    document.getElementById("adventureLives").innerHTML =
-        "❤️ Lives: <span id='adventureLifeNumber'>" +
-        lives +
-        "</span>";
-
-    showAdventureIntro();
-
-}
-
-
-/* =====================================================
-   ADVENTURE INTRO
-===================================================== */
-
-function showAdventureIntro(){
-
-    const questionBox =
-        document.getElementById(
-            "adventureQuestionBox"
-        );
-
-    questionBox.innerHTML = `
-
-        <h2>🏃 RUN, MILO, RUN!</h2>
-
-        <div id="adventureHint">
-
-            You made 2 mistakes in Level
-            ${currentLevel}!
-
-            <br><br>
-
-            Milo found two mysterious doors.
-
-            <br>
-
-            Solve the math problem and
-            choose the correct door!
-
-        </div>
-
-        <button
-            onclick="beginAdventureQuestions()"
-            style="
-                margin-top:15px;
-                padding:15px 30px;
-                background:#55bd45;
-                color:white;
-                border:4px solid #367b2c;
-                box-shadow:0 5px 0 #24521d;
-                font-size:20px;
-                font-weight:bold;
-            ">
-
-            🚪 START ADVENTURE
-
-        </button>
-    `;
-
-}
-
-
-/* =====================================================
-   BEGIN ADVENTURE QUESTIONS
-===================================================== */
-
-function beginAdventureQuestions(){
-
-    adventureQuestionNumber = 0;
-
-    showAdventureQuestion();
-
-}
-
-
-/* =====================================================
-   ADVENTURE QUESTION
-===================================================== */
-
-function showAdventureQuestion(){
-
-    adventureQuestionNumber++;
-
-    let max;
-
-    if(currentLevel <= 2){
-
-        max = 10;
-
-    }else if(currentLevel <= 4){
-
-        max = 20;
-
-    }else if(currentLevel <= 6){
-
-        max = 30;
-
-    }else if(currentLevel <= 8){
-
-        max = 50;
-
-    }else{
-
-        max = 100;
-
-    }
-
-
-    adventureA =
-        Math.floor(
-            Math.random() *
-            (max + 1)
-        );
-
-    adventureB =
-        Math.floor(
-            Math.random() *
-            (max + 1)
-        );
-
-    adventureCorrectAnswer =
-        adventureA + adventureB;
-
-
-    /*
-     * Make one correct door
-     * and one wrong door.
-     */
-
-    let wrongAnswer;
-
-    do{
-
-        let offset =
-            Math.floor(
-                Math.random() * 10
-            ) + 1;
-
-        if(Math.random() > .5){
-
-            wrongAnswer =
-                adventureCorrectAnswer +
-                offset;
-
-        }else{
-
-            wrongAnswer =
-                adventureCorrectAnswer -
-                offset;
-
-        }
-
-    }while(
-        wrongAnswer < 0 ||
-        wrongAnswer ===
-        adventureCorrectAnswer
+    setTimeout(
+        nextQuestionOrAdventure,
+        800
     );
 
-
-    adventureDoors =
-        Math.random() > .5
-        ?
-        [
-            adventureCorrectAnswer,
-            wrongAnswer
-        ]
-        :
-        [
-            wrongAnswer,
-            adventureCorrectAnswer
-        ];
-
-
-    document.getElementById(
-        "adventureQuestionBox"
-    ).innerHTML = `
-
-        <h2>
-            🚪 ADVENTURE QUESTION
-        </h2>
-
-        <div id="adventureHint">
-
-            Question
-            ${adventureQuestionNumber}
-            of
-            ${adventureQuestionsNeeded}
-
-            <br>
-
-            Choose the correct door!
-
-        </div>
-
-        <div id="adventureQuestionText">
-
-            ${adventureA}
-            +
-            ${adventureB}
-            = ?
-
-        </div>
-
-        <div class="doors">
-
-            <button
-                class="door"
-                onclick="chooseAdventureDoor(0)">
-
-                <span>
-                    ${adventureDoors[0]}
-                </span>
-
-            </button>
-
-            <button
-                class="door"
-                onclick="chooseAdventureDoor(1)">
-
-                <span>
-                    ${adventureDoors[1]}
-                </span>
-
-            </button>
-
-        </div>
-    `;
-
 }
 
 
 /* =====================================================
-   CHOOSE ADVENTURE DOOR
+   NEXT QUESTION
 ===================================================== */
 
-function chooseAdventureDoor(index){
+function nextQuestionOrAdventure(){
 
-    if(!adventureActive){
+    if(lives <= 0){
+
+        setTimeout(
+            gameOver,
+            100
+        );
+
         return;
-    }
-
-    const selected =
-        adventureDoors[index];
-
-
-    /* CORRECT DOOR */
-
-    if(
-        selected ===
-        adventureCorrectAnswer
-    ){
-
-        score += 15;
-
-        updateStats();
-
-        showAdventureMessage(
-            "🎉 Correct Door! Milo keeps running! +15 ⭐",
-            true
-        );
-
-
-        setTimeout(() => {
-
-            if(
-                adventureQuestionNumber >=
-                adventureQuestionsNeeded
-            ){
-
-                finishAdventureMode();
-
-            }else{
-
-                showAdventureQuestion();
-
-            }
-
-        },1000);
 
     }
 
+    if(mistakesThisLevel >= 2){
 
-    /* WRONG DOOR */
+        startRecoveryChallenge();
 
-    else{
-
-        lives--;
-
-        updateStats();
-
-        showAdventureMessage(
-            "❌ Wrong Door! Try the next path!",
-            false
-        );
-
-        updateAdventureLives();
-
-
-        if(lives <= 0){
-
-            setTimeout(() => {
-
-                closeAdventure();
-
-                gameOver();
-
-            },1000);
-
-            return;
-        }
-
-
-        setTimeout(() => {
-
-            /*
-             * Wrong door does not
-             * count as an adventure
-             * question.
-             */
-
-            showAdventureQuestion();
-
-        },1000);
+        return;
 
     }
 
-}
-
-
-/* =====================================================
-   ADVENTURE MESSAGE
-===================================================== */
-
-function showAdventureMessage(
-    message,
-    success
-){
-
-    const box =
-        document.getElementById(
-            "adventureMessage"
-        );
-
-    box.innerText =
-        message;
-
-    box.style.display =
-        "block";
-
-    if(success){
-
-        box.style.borderColor =
-            "#3b9635";
-
-    }else{
-
-        box.style.borderColor =
-            "#c33";
-
-    }
-
-
-    setTimeout(() => {
-
-        box.style.display =
-            "none";
-
-    },850);
-
-}
-
-
-/* =====================================================
-   UPDATE ADVENTURE LIVES
-===================================================== */
-
-function updateAdventureLives(){
-
-    const element =
-        document.getElementById(
-            "adventureLifeNumber"
-        );
-
-    if(element){
-
-        element.innerText =
-            lives;
-
-    }
-
-}
-
-
-/* =====================================================
-   FINISH ADVENTURE
-===================================================== */
-
-function finishAdventureMode(){
-
-    adventureActive = false;
-
-    mistakesThisLevel = 0;
-
-    closeAdventure();
-
-    document.getElementById("gamePanel").style.display =
-        "block";
-
-    document.getElementById("feedback").innerText =
-        "🏃 Amazing! Milo escaped the adventure path!";
-
-    updateStats();
-
-
-    /*
-     * Continue the normal level
-     */
-
-    questionNumber++;
-
-    if(
-        questionNumber >
-        questionsPerLevel
-    ){
+    if(questionNumber >= 5){
 
         completeLevel();
 
-    }else{
-
-        generateQuestion();
+        return;
 
     }
 
+    questionNumber++;
+
+    generateQuestion();
+
 }
 
 
 /* =====================================================
-   CLOSE ADVENTURE
+   DISABLE
 ===================================================== */
 
-function closeAdventure(){
+function disableAnswers(){
 
-    adventureActive = false;
-
-    document.getElementById("adventureMode").style.display =
-        "none";
+    document
+        .querySelectorAll(".answer")
+        .forEach(
+            button=>{
+                button.disabled = true;
+            }
+        );
 
 }
 
 
 /* =====================================================
-   LEVEL COMPLETE
+   RECOVERY CHALLENGE
+===================================================== */
+
+function startRecoveryChallenge(){
+
+    clearTimer();
+
+    questionPanel.classList.add(
+        "hidden"
+    );
+
+    const oldAnswer =
+        currentAnswer;
+
+    const overlay =
+        document.createElement("div");
+
+    overlay.className =
+        "overlay show";
+
+    overlay.innerHTML = `
+        <div class="card">
+
+            <h2>🌀 Magic Recovery!</h2>
+
+            <p>
+                Answer correctly to regain a life!
+            </p>
+
+            <div
+                style="
+                    font-size:42px;
+                    font-weight:900;
+                    margin:20px;
+                    color:#273c75;
+                ">
+                ${oldAnswer}
+            </div>
+
+            <div
+                id="recoveryAnswers"
+                style="
+                    display:grid;
+                    grid-template-columns:repeat(3,1fr);
+                    gap:10px;
+                ">
+            </div>
+
+        </div>
+    `;
+
+    game.appendChild(overlay);
+
+    const box =
+        overlay.querySelector(
+            "#recoveryAnswers"
+        );
+
+    let values = [
+        oldAnswer,
+        oldAnswer+2,
+        Math.max(0,oldAnswer-2)
+    ];
+
+    values.sort(
+        ()=>Math.random()-.5
+    );
+
+    values.forEach(
+        value=>{
+
+            const b =
+                document.createElement("button");
+
+            b.className =
+                "gameBtn";
+
+            b.textContent =
+                value;
+
+            b.onclick =
+                ()=>{
+
+                    overlay.remove();
+
+                    if(value === oldAnswer){
+
+                        lives =
+                            Math.min(
+                                3,
+                                lives+1
+                            );
+
+                        energy += 2;
+
+                        showPopup(
+                            "✨ Recovery success! +1 ❤️"
+                        );
+
+                    }else{
+
+                        showPopup(
+                            "💥 Recovery failed!"
+                        );
+
+                    }
+
+                    mistakesThisLevel = 0;
+
+                    updateStats();
+
+                    if(lives <= 0){
+
+                        gameOver();
+
+                    }else{
+
+                        questionPanel.classList.remove(
+                            "hidden"
+                        );
+
+                        questionNumber++;
+
+                        if(questionNumber > 5){
+
+                            completeLevel();
+
+                        }else{
+
+                            generateQuestion();
+
+                        }
+
+                    }
+
+                };
+
+            box.appendChild(b);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   COMPLETE LEVEL
 ===================================================== */
 
 function completeLevel(){
 
-    totalItems++;
+    clearTimer();
+
+    questionPanel.classList.add(
+        "hidden"
+    );
+
+    crystals++;
+
+    energy += 2;
+
+    score +=
+        25 +
+        currentLevel*5;
+
+    const perfect =
+        mistakesThisLevel === 0;
+
+    if(perfect){
+
+        crystals += 2;
+
+        score += 50;
+
+    }
 
     updateStats();
 
-    let rewards = [
+    completeMessage.innerHTML =
+        `
+        You completed
+        <b>${levels[currentLevel-1].name}</b>!<br><br>
 
-        "🌱",
-        "🍎",
-        "💎",
-        "🌸",
-        "🪵",
-        "🔮",
-        "🗝️",
-        "☁️",
-        "⭐",
-        "🏆"
+        ${levels[currentLevel-1].reward}
+        Reward collected!<br>
 
-    ];
+        ${perfect
+            ? "🏆 PERFECT LEVEL! +2 💎 +50 XP"
+            : "⭐ Great work! +1 💎 +2 ⚡"
+        }
+        `;
 
-    document.getElementById("rewardIcon").innerText =
-        rewards[currentLevel - 1];
-
-    document.getElementById("completeTitle").innerText =
-        "🎉 Level " +
-        currentLevel +
-        " Complete!";
-
-    document.getElementById("completeText").innerText =
-        "Amazing! You solved the challenges and collected a magical item.";
-
-    document.getElementById("completePopup").style.display =
-        "flex";
-
-    createConfetti();
-
-
-    if(currentLevel >= 10){
-
-        document.querySelector(
-            "#completePopup .continue"
-        ).innerText =
-            "🏆 FINISH QUEST";
-
-        document.querySelector(
-            "#completePopup .continue"
-        ).onclick =
-            showVictory;
-
-    }else{
-
-        document.querySelector(
-            "#completePopup .continue"
-        ).innerText =
-            "▶ NEXT LEVEL";
-
-        document.querySelector(
-            "#completePopup .continue"
-        ).onclick =
-            nextLevel;
-
-    }
+    completeOverlay.classList.add(
+        "show"
+    );
 
 }
 
@@ -2918,39 +2722,267 @@ function completeLevel(){
    NEXT LEVEL
 ===================================================== */
 
-function nextLevel(){
+nextLevelBtn.addEventListener(
+    "click",
+    ()=>{
 
-    closePopups();
+        completeOverlay.classList.remove(
+            "show"
+        );
 
-    if(currentLevel >= 10){
+        if(currentLevel >= 10){
 
-        showVictory();
+            victoryOverlay.classList.add(
+                "show"
+            );
 
+            return;
+
+        }
+
+        currentLevel++;
+
+        questionNumber = 1;
+
+        mistakesThisLevel = 0;
+
+        correctStreak = 0;
+
+        createLevelMap();
+
+        updateStats();
+
+        moveCharacterToLevel(
+            currentLevel
+        );
+
+        questionPanel.classList.add(
+            "hidden"
+        );
+
+        showPopup(
+            `🔓 Level ${currentLevel} unlocked!`
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PLAYER MOVEMENT
+===================================================== */
+
+function moveCharacterToLevel(n){
+
+    const buttons =
+        document.querySelectorAll(
+            ".level"
+        );
+
+    const target =
+        buttons[n-1];
+
+    if(!target)
         return;
+
+    const targetRect =
+        target.getBoundingClientRect();
+
+    const gameRect =
+        game.getBoundingClientRect();
+
+    player.style.left =
+        (
+            targetRect.left+
+            targetRect.width/2-
+            gameRect.left
+        )+"px";
+
+    player.style.top =
+        (
+            targetRect.top+
+            targetRect.height/2-
+            gameRect.top
+        )+"px";
+
+    player.classList.remove(
+        "bounce"
+    );
+
+    void player.offsetWidth;
+
+    player.classList.add(
+        "bounce"
+    );
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+function showPopup(message){
+
+    popup.textContent =
+        message;
+
+    popup.classList.remove(
+        "show"
+    );
+
+    void popup.offsetWidth;
+
+    popup.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   SHOP
+===================================================== */
+
+shopBtn.addEventListener(
+    "click",
+    ()=>{
+
+        shopOverlay.classList.add(
+            "show"
+        );
+
+        updateStats();
+
+    }
+);
+
+
+closeShop.addEventListener(
+    "click",
+    ()=>{
+
+        shopOverlay.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+function buyItem(item){
+
+    if(item === "life"){
+
+        if(energy < 10){
+
+            showPopup(
+                "⚡ Not enough Energy!"
+            );
+
+            return;
+
+        }
+
+        if(lives >= 3){
+
+            showPopup(
+                "❤️ Your lives are already full!"
+            );
+
+            return;
+
+        }
+
+        energy -= 10;
+        lives++;
+
+        showPopup(
+            "❤️ Extra Life purchased!"
+        );
+
     }
 
-    currentLevel++;
 
-    questionNumber = 1;
+    if(item === "time"){
 
-    mistakesThisLevel = 0;
+        if(energy < 15){
+
+            showPopup(
+                "⚡ Not enough Energy!"
+            );
+
+            return;
+
+        }
+
+        energy -= 15;
+
+        timeBoost = true;
+
+        showPopup(
+            "⏱️ Time Boost purchased!"
+        );
+
+    }
+
+
+    if(item === "xp"){
+
+        if(crystals < 20){
+
+            showPopup(
+                "💎 Not enough Crystals!"
+            );
+
+            return;
+
+        }
+
+        crystals -= 20;
+
+        xpBoost = true;
+
+        showPopup(
+            "⭐ XP Boost purchased!"
+        );
+
+    }
+
+
+    if(item === "bag"){
+
+        if(backpack){
+
+            showPopup(
+                "🎒 You already own this!"
+            );
+
+            return;
+
+        }
+
+        if(crystals < 30){
+
+            showPopup(
+                "💎 Not enough Crystals!"
+            );
+
+            return;
+
+        }
+
+        crystals -= 30;
+
+        backpack = true;
+
+        showPopup(
+            "🎒 Adventure Backpack unlocked!"
+        );
+
+    }
 
     updateStats();
-
-    document.getElementById("gamePanel").style.display =
-        "block";
-
-    document.getElementById("world").style.display =
-        "none";
-
-    document.getElementById("levelTitle").innerText =
-        "Level " +
-        currentLevel;
-
-    document.getElementById("questionStory").innerText =
-        stories[currentLevel];
-
-    generateQuestion();
 
 }
 
@@ -2961,15 +2993,15 @@ function nextLevel(){
 
 function gameOver(){
 
-    closeAdventure();
+    clearTimer();
 
-    document.getElementById("gameOverText").innerText =
-        "Milo ran out of lives. Your score was " +
-        score +
-        ". Don't worry — mistakes help us learn!";
+    questionPanel.classList.add(
+        "hidden"
+    );
 
-    document.getElementById("gameOverPopup").style.display =
-        "flex";
+    gameOverOverlay.classList.add(
+        "show"
+    );
 
 }
 
@@ -2978,151 +3010,108 @@ function gameOver(){
    RESTART
 ===================================================== */
 
-function restartGame(){
+restartBtn.addEventListener(
+    "click",
+    ()=>{
 
-    closePopups();
-
-    closeAdventure();
-
-    score = 0;
-
-    lives = 3;
-
-    currentLevel = 1;
-
-    questionNumber = 1;
-
-    totalItems = 0;
-
-    mistakesThisLevel = 0;
-
-    adventureActive = false;
-
-    updateStats();
-
-    document.getElementById("gamePanel").style.display =
-        "none";
-
-    document.getElementById("world").style.display =
-        "block";
-
-}
-
-
-/* =====================================================
-   VICTORY
-===================================================== */
-
-function showVictory(){
-
-    closePopups();
-
-    closeAdventure();
-
-    document.getElementById("finalScore").innerText =
-        score;
-
-    document.getElementById("victoryPopup").style.display =
-        "flex";
-
-    createConfetti();
-
-}
-
-
-/* =====================================================
-   BACK TO WORLD
-===================================================== */
-
-function backToWorld(){
-
-    closePopups();
-
-    closeAdventure();
-
-    document.getElementById("gamePanel").style.display =
-        "none";
-
-    document.getElementById("world").style.display =
-        "block";
-
-    updateStats();
-
-}
-
-
-/* =====================================================
-   POPUPS
-===================================================== */
-
-function closePopups(){
-
-    document.querySelectorAll(".overlay")
-        .forEach(popup => {
-
-            popup.style.display =
-                "none";
-
-        });
-
-}
-
-
-/* =====================================================
-   CONFETTI
-===================================================== */
-
-function createConfetti(){
-
-    for(
-        let i = 0;
-        i < 35;
-        i++
-    ){
-
-        const piece =
-            document.createElement("div");
-
-        piece.className =
-            "confetti";
-
-        piece.style.left =
-            Math.random() *
-            100 +
-            "vw";
-
-        piece.style.animationDelay =
-            Math.random() *
-            1.5 +
-            "s";
-
-        piece.style.background = [
-
-            "#ff5252",
-            "#ffd740",
-            "#69f0ae",
-            "#40c4ff",
-            "#b388ff"
-
-        ][
-            Math.floor(
-                Math.random() * 5
-            )
-        ];
-
-        document.body.appendChild(
-            piece
+        gameOverOverlay.classList.remove(
+            "show"
         );
 
-        setTimeout(() => {
-
-            piece.remove();
-
-        },4000);
+        resetGame();
 
     }
+);
+
+
+victoryRestartBtn.addEventListener(
+    "click",
+    ()=>{
+
+        victoryOverlay.classList.remove(
+            "show"
+        );
+
+        resetGame();
+
+    }
+);
+
+
+/* =====================================================
+   RANDOM
+===================================================== */
+
+function random(min,max){
+
+    return Math.floor(
+        Math.random()*(max-min+1)
+    )+min;
 
 }
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(
+            event.key.toLowerCase() === "m"
+        ){
+
+            musicBtn.click();
+
+        }
+
+        if(
+            event.key.toLowerCase() === "b"
+        ){
+
+            shopBtn.click();
+
+        }
+
+        if(
+            event.key === "Enter" &&
+            gameStarted &&
+            questionPanel.classList.contains(
+                "hidden"
+            ) &&
+            !completeOverlay.classList.contains(
+                "show"
+            ) &&
+            !gameOverOverlay.classList.contains(
+                "show"
+            ) &&
+            !victoryOverlay.classList.contains(
+                "show"
+            ) &&
+            !shopOverlay.classList.contains(
+                "show"
+            )
+        ){
+
+            startLevel(
+                currentLevel
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INITIAL
+===================================================== */
+
+createLevelMap();
+
+updateStats();
 
 </script>
 
